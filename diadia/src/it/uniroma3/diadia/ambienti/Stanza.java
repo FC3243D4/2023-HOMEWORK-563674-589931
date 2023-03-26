@@ -1,4 +1,5 @@
 package it.uniroma3.diadia.ambienti;
+import it.uniroma3.diadia.attrezzi.*;
 
 
 /**
@@ -166,9 +167,16 @@ public class Stanza {
 	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
 	 */
 	public boolean removeAttrezzo(Attrezzo attrezzo) {
-		// TODO da implementare
-		return false;
-	}
+        for(int i = 0; i < this.attrezzi.length; i++) {
+            if(this.attrezzi[i] != null) {
+                if(this.attrezzi[i].getNome().equals(attrezzo.getNome())) {
+                    this.attrezzi[i] = null;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 
 	public String[] getDirezioni() {
