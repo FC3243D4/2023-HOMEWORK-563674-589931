@@ -36,8 +36,9 @@ public class DiaDia {
 	}
 
 	public void gioca() {
-		IO.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		String istruzione;
+		
+		IO.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		do		
 			istruzione = IO.leggiRiga();
 		while (!processaIstruzione(istruzione));
@@ -92,15 +93,15 @@ public class DiaDia {
 		if(direzione==null)
 			IO.mostraMessaggio("Dove vuoi andare ?");
 		Stanza prossimaStanza = null;
-		prossimaStanza = this.partita.getStanzaCorrente().getStanzaAdiacente(direzione);
+		prossimaStanza = this.partita.getLabirinto().getStanzaCorrente().getStanzaAdiacente(direzione);
 		if (prossimaStanza == null)
 			IO.mostraMessaggio("Direzione inesistente");
 		else {
-			this.partita.setStanzaCorrente(prossimaStanza);
+			this.partita.getLabirinto().setStanzaCorrente(prossimaStanza);
 			int cfu = this.partita.getGiocatore().getCfu();
 			this.partita.getGiocatore().setCfu(cfu--);
 		}
-		IO.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
+		IO.mostraMessaggio(partita.getLabirinto().getStanzaCorrente().getDescrizione());
 	}
 
 	/**
@@ -116,13 +117,13 @@ public class DiaDia {
 	}
 
 	public void prendi(String nomeAttrezzo) {
-		Attrezzo attrezzi[]=this.partita.getStanzaCorrente().getAttrezzi();
+		Attrezzo attrezzi[]=this.partita.getLabirinto().getStanzaCorrente().getAttrezzi();
 		Attrezzo a=null;
 		for(int i=0;i<attrezzi.length;i++) {
 			if(attrezzi[i] != null) {
 				if(attrezzi[i].getNome().equals(nomeAttrezzo)) {
 					a=attrezzi[i];
-					this.partita.getStanzaCorrente().removeAttrezzo(attrezzi[i]);
+					this.partita.getLabirinto().getStanzaCorrente().removeAttrezzo(attrezzi[i]);
 					this.partita.getGiocatore().getBorsa().addAttrezzo(a);
 					IO.mostraMessaggio("oggetto "+nomeAttrezzo+" messo in borsa");
 				}
@@ -136,7 +137,7 @@ public class DiaDia {
 		Attrezzo a=this.partita.getGiocatore().getBorsa().getAttrezzo(nomeAttrezzo);
 		if(a!=null) {
 			this.partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);
-			this.partita.getStanzaCorrente().addAttrezzo(a);
+			this.partita.getLabirinto().getStanzaCorrente().addAttrezzo(a);
 			IO.mostraMessaggio("oggetto "+nomeAttrezzo+" tolto dalla borsa e posato nella stanza");
 		}
 		if(a==null) IO.mostraMessaggio("oggetto non presente in borsa");
