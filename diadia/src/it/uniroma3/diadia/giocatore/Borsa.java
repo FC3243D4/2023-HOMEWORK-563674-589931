@@ -19,6 +19,7 @@ public class Borsa {
 	}
 
 	public boolean addAttrezzo(Attrezzo attrezzo) {
+		if (attrezzo==null) return false;
 		if (this.getPeso() + attrezzo.getPeso() > this.getPesoMax())
 			return false;
 		if (this.numeroAttrezzi==10)
@@ -64,6 +65,7 @@ public class Borsa {
 				if(this.attrezzi[i].getNome().equals(nomeAttrezzo)) {
 					a=this.attrezzi[i];
 					this.attrezzi[i]=null;
+					this.numeroAttrezzi--;
 				}
 			}
 		}

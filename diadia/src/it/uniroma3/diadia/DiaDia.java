@@ -33,11 +33,12 @@ public class DiaDia {
 
 	public DiaDia() {
 		this.partita = new Partita();
+		this.IO=new IOConsole();
 	}
 
 	public void gioca() {
 		String istruzione;
-		
+
 		IO.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		do		
 			istruzione = IO.leggiRiga();
@@ -53,7 +54,8 @@ public class DiaDia {
 	private boolean processaIstruzione(String istruzione) {
 		Comando daEseguire = new Comando(istruzione);
 
-		if (daEseguire!=null)
+		if (daEseguire.getNome()==null) {IO.mostraMessaggio("Devi inserire un comando");}
+		else {
 			if (daEseguire.getNome().equals("fine")) {
 				this.fine(); 
 				return true;
@@ -67,12 +69,14 @@ public class DiaDia {
 				this.posa(daEseguire.getParametro());
 			else
 				IO.mostraMessaggio("Comando sconosciuto");
+		}
 		if (this.partita.vinta()) {
 			IO.mostraMessaggio("Hai vinto!");
 			return true;
 		} else
 			return false;
-	}   
+	}  
+
 
 	// implementazioni dei comandi dell'utente:
 
@@ -123,7 +127,7 @@ public class DiaDia {
 			if(attrezzi[i] != null) {
 				if(attrezzi[i].getNome().equals(nomeAttrezzo)) {
 					a=attrezzi[i];
-					this.partita.getLabirinto().getStanzaCorrente().removeAttrezzo(attrezzi[i]);
+					this.partita.getLabirinto().getStanzaCorrente().removeAttrezzo(attrezzi[i].getNome());
 					this.partita.getGiocatore().getBorsa().addAttrezzo(a);
 					IO.mostraMessaggio("oggetto "+nomeAttrezzo+" messo in borsa");
 				}
