@@ -70,8 +70,7 @@ public class Borsa {
 					this.numeroAttrezzi--;
 					rimosso=true;
 				}
-			}
-			if(rimosso==true && i<this.attrezzi.length-1) {
+			} else if(rimosso==true && i<this.attrezzi.length-1) {
 				attrezzi[i]=attrezzi[i+1];
 			}
 		}
