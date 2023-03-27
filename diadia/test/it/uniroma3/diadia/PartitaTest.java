@@ -23,34 +23,34 @@ class PartitaTest {
 	@Test
 	void stanzaVincenteVuota() {
 		this.partita.getLabirinto().setStanzaVincente(stanzaNull);
-		this.partita.getLabirinto().setStanzaCorrente(stanza1);
+		this.partita.setStanzaCorrente(stanza1);
 		assertEquals(false,this.partita.vinta());
 	}
 	
 	@Test
 	void stanzaCorrenteVuota() {
 		this.partita.getLabirinto().setStanzaVincente(stanza1);
-		this.partita.getLabirinto().setStanzaCorrente(stanzaNull);
+		this.partita.setStanzaCorrente(stanzaNull);
 		assertEquals(false,this.partita.vinta());
 	}
 	
 	@Test
 	void stanzaVincenteECorrenteVuote() {
 		this.partita.getLabirinto().setStanzaVincente(stanzaNull);
-		this.partita.getLabirinto().setStanzaCorrente(stanzaNull);
+		this.partita.setStanzaCorrente(stanzaNull);
 		assertEquals(true,this.partita.vinta());
 	}
 	
 	@Test
 	void stanzaVincenteDiversaStanzaCorrente() {
-		this.partita.getLabirinto().setStanzaCorrente(stanza1);
+		this.partita.setStanzaCorrente(stanza1);
 		this.partita.getLabirinto().setStanzaVincente(stanza2);
 		assertEquals(false,this.partita.vinta());
 	}
 	
 	@Test
 	void stanzaVincenteUgualeStanzaCorrente() {
-		this.partita.getLabirinto().setStanzaCorrente(stanza1);
+		this.partita.setStanzaCorrente(stanza1);
 		this.partita.getLabirinto().setStanzaVincente(stanza1);
 		assertEquals(true,this.partita.vinta());
 	}
@@ -58,7 +58,7 @@ class PartitaTest {
 	@Test
 	void finitaTrueVintaTrueCfu0() {
 		this.partita.getGiocatore().setCfu(0);
-		this.partita.getLabirinto().setStanzaCorrente(stanza1);
+		this.partita.setStanzaCorrente(stanza1);
 		this.partita.getLabirinto().setStanzaVincente(stanza1);
 		this.partita.setFinita();
 		if(this.partita.vinta()!=true) fail("il metodo vinta() non funziona come ci si aspetta");
@@ -68,7 +68,7 @@ class PartitaTest {
 	@Test
 	void finitaTrueVintaTrueCfuDiversiDa0() {
 		this.partita.getGiocatore().setCfu(1);
-		this.partita.getLabirinto().setStanzaCorrente(stanza1);
+		this.partita.setStanzaCorrente(stanza1);
 		this.partita.getLabirinto().setStanzaVincente(stanza1);
 		this.partita.setFinita();
 		if(this.partita.vinta()!=true) fail("il metodo vinta() non funziona come ci si aspetta");
@@ -78,7 +78,7 @@ class PartitaTest {
 	@Test
 	void finitaTrueVintaFalseCfu0() {
 		this.partita.getGiocatore().setCfu(0);
-		this.partita.getLabirinto().setStanzaCorrente(stanza1);
+		this.partita.setStanzaCorrente(stanza1);
 		this.partita.getLabirinto().setStanzaVincente(stanza2);
 		this.partita.setFinita();
 		if(this.partita.vinta()!=false) fail("il metodo vinta() non funziona come ci si aspetta");
@@ -88,7 +88,7 @@ class PartitaTest {
 	@Test
 	void finitaTrueVintaFalseCfuDiversiDa0() {
 		this.partita.getGiocatore().setCfu(1);
-		this.partita.getLabirinto().setStanzaCorrente(stanza1);
+		this.partita.setStanzaCorrente(stanza1);
 		this.partita.getLabirinto().setStanzaVincente(stanza2);
 		this.partita.setFinita();
 		if(this.partita.vinta()!=false) fail("il metodo vinta() non funziona come ci si aspetta");
@@ -98,7 +98,7 @@ class PartitaTest {
 	@Test
 	void finitaFalseVintaTrueCfu0() {
 		this.partita.getGiocatore().setCfu(0);
-		this.partita.getLabirinto().setStanzaCorrente(stanza1);
+		this.partita.setStanzaCorrente(stanza1);
 		this.partita.getLabirinto().setStanzaVincente(stanza1);
 		if(this.partita.vinta()!=true) fail("il metodo vinta() non funziona come ci si aspetta");
 		else assertEquals(true,this.partita.isFinita());
@@ -107,7 +107,7 @@ class PartitaTest {
 	@Test
 	void finitaFalseVintaTrueCfuDiversiDa0() {
 		this.partita.getGiocatore().setCfu(1);
-		this.partita.getLabirinto().setStanzaCorrente(stanza1);
+		this.partita.setStanzaCorrente(stanza1);
 		this.partita.getLabirinto().setStanzaVincente(stanza1);
 		if(this.partita.vinta()!=true) fail("il metodo vinta() non funziona come ci si aspetta");
 		else assertEquals(true,this.partita.isFinita());
@@ -116,7 +116,7 @@ class PartitaTest {
 	@Test
 	void finitaFalseVintaFalseCfu0() {
 		this.partita.getGiocatore().setCfu(0);
-		this.partita.getLabirinto().setStanzaCorrente(stanza1);
+		this.partita.setStanzaCorrente(stanza1);
 		this.partita.getLabirinto().setStanzaVincente(stanza1);
 		if(this.partita.vinta()!=true) fail("il metodo vinta() non funziona come ci si aspetta");
 		else assertEquals(true,this.partita.isFinita());
@@ -125,7 +125,7 @@ class PartitaTest {
 	@Test
 	void finitaFalseVintaFalseCfuDiversiDa0() {
 		this.partita.getGiocatore().setCfu(1);
-		this.partita.getLabirinto().setStanzaCorrente(stanza1);
+		this.partita.setStanzaCorrente(stanza1);
 		this.partita.getLabirinto().setStanzaVincente(stanza2);
 		if(this.partita.vinta()!=false) fail("il metodo vinta() non funziona come ci si aspetta");
 		else assertEquals(false,this.partita.isFinita());

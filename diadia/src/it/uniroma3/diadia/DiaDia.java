@@ -97,15 +97,15 @@ public class DiaDia {
 		if(direzione==null)
 			IO.mostraMessaggio("Dove vuoi andare ?");
 		Stanza prossimaStanza = null;
-		prossimaStanza = this.partita.getLabirinto().getStanzaCorrente().getStanzaAdiacente(direzione);
+		prossimaStanza = this.partita.getStanzaCorrente().getStanzaAdiacente(direzione);
 		if (prossimaStanza == null)
 			IO.mostraMessaggio("Direzione inesistente");
 		else {
-			this.partita.getLabirinto().setStanzaCorrente(prossimaStanza);
+			this.partita.setStanzaCorrente(prossimaStanza);
 			int cfu = this.partita.getGiocatore().getCfu();
 			this.partita.getGiocatore().setCfu(cfu--);
 		}
-		IO.mostraMessaggio(partita.getLabirinto().getStanzaCorrente().getDescrizione());
+		IO.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
 	}
 
 	/**
@@ -121,13 +121,13 @@ public class DiaDia {
 	}
 
 	public void prendi(String nomeAttrezzo) {
-		Attrezzo attrezzi[]=this.partita.getLabirinto().getStanzaCorrente().getAttrezzi();
+		Attrezzo attrezzi[]=this.partita.getStanzaCorrente().getAttrezzi();
 		Attrezzo a=null;
 		for(int i=0;i<attrezzi.length;i++) {
 			if(attrezzi[i] != null) {
 				if(attrezzi[i].getNome().equals(nomeAttrezzo)) {
 					a=attrezzi[i];
-					this.partita.getLabirinto().getStanzaCorrente().removeAttrezzo(attrezzi[i].getNome());
+					this.partita.getStanzaCorrente().removeAttrezzo(attrezzi[i].getNome());
 					this.partita.getGiocatore().getBorsa().addAttrezzo(a);
 					IO.mostraMessaggio("oggetto "+nomeAttrezzo+" messo in borsa");
 				}
@@ -142,7 +142,7 @@ public class DiaDia {
 		Attrezzo a;
 		if(c==true) {
 			a=this.partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);
-			this.partita.getLabirinto().getStanzaCorrente().addAttrezzo(a);
+			this.partita.getStanzaCorrente().addAttrezzo(a);
 			IO.mostraMessaggio("oggetto "+nomeAttrezzo+" tolto dalla borsa e posato nella stanza");
 		}
 		if(c==false) IO.mostraMessaggio("oggetto non presente in borsa");
