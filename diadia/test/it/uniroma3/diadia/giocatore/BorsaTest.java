@@ -81,7 +81,7 @@ class BorsaTest {
     }
     
     @Test
-    void testHatAttrezzoSuBorsaConPiùDiUnAttrezzo() {
+    void testHatAttrezzoSuBorsaConPiuDiUnAttrezzo() {
     	this.borsaDieci.addAttrezzo(attrezzo);
     	this.borsaDieci.addAttrezzo(attrezzoTroppoPesante);
     	assertEquals(true,this.borsaDieci.hasAttrezzo("pesante"));

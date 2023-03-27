@@ -138,12 +138,13 @@ public class DiaDia {
 	}
 
 	public void posa(String nomeAttrezzo) {
-		Attrezzo a=this.partita.getGiocatore().getBorsa().getAttrezzo(nomeAttrezzo);
-		if(a!=null) {
-			this.partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);
+		boolean c=this.partita.getGiocatore().getBorsa().hasAttrezzo(nomeAttrezzo);
+		Attrezzo a;
+		if(c==true) {
+			a=this.partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);
 			this.partita.getLabirinto().getStanzaCorrente().addAttrezzo(a);
 			IO.mostraMessaggio("oggetto "+nomeAttrezzo+" tolto dalla borsa e posato nella stanza");
 		}
-		if(a==null) IO.mostraMessaggio("oggetto non presente in borsa");
+		if(c==false) IO.mostraMessaggio("oggetto non presente in borsa");
 	}
 }
