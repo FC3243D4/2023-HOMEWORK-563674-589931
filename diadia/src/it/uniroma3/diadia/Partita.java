@@ -64,6 +64,12 @@ public class Partita {
 		return labirinto;
 	}
 
+	public boolean giocatoreIsVivo() {
+		if(this.giocatore.getCfu()>0)
+			return true;
+		return false;
+	}
+
 
 	
 }
