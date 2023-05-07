@@ -1,5 +1,8 @@
 package it.uniroma3.diadia.comandi;
 
+import java.util.Iterator;
+import java.util.List;
+
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
@@ -20,9 +23,19 @@ public class ComandoPrendi implements Comando{
 	 * nomeAttrezzo e se si lo aggiunge alla borsa e lo toglie dalla stanza*/
 	@Override
 	public void esegui(Partita partita) {
-		Attrezzo attrezzi[]=partita.getStanzaCorrente().getAttrezzi();
-		Attrezzo a=null;
-		
+		List<Attrezzo> attrezzi=partita.getStanzaCorrente().getAttrezzi();
+		Attrezzo cercato=null;
+		Iterator<Attrezzo> iteratore = attrezzi.iterator();
+		while (iteratore.hasNext() && cercato==null) {
+			Attrezzo a =iteratore.next();
+			if(a.getNome().equals(nomeAttrezzo)) {
+				cercato=a;
+				partita.getStanzaCorrente().removeAttrezzo(a.getNome());
+				partita.getGiocatore().getBorsa().addAttrezzo(a);
+				IO.mostraMessaggio("oggetto "+nomeAttrezzo+" messo in borsa");
+			}
+		}
+		/*
 		for(int i=0;i<attrezzi.length;i++) {
 			if(attrezzi[i] != null) {
 				if(attrezzi[i].getNome().equals(this.nomeAttrezzo)) {
@@ -32,8 +45,8 @@ public class ComandoPrendi implements Comando{
 					IO.mostraMessaggio("oggetto "+nomeAttrezzo+" messo in borsa");
 				}
 			}
-		}
-		if(a==null) IO.mostraMessaggio("oggetto non presente nella stanza");
+		}*/
+		if(cercato==null) IO.mostraMessaggio("oggetto non presente nella stanza");
 
 	}
 
