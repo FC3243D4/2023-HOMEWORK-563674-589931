@@ -33,7 +33,7 @@ public class Borsa {
 		if (this.getPeso() + attrezzo.getPeso() > this.getPesoMax())
 			return false;
 		//if (this.numeroAttrezzi==10)
-			//return false;
+		//return false;
 		this.attrezzi.add(attrezzo);
 		return true;
 	}
@@ -95,50 +95,50 @@ public class Borsa {
 				Attrezzo a = iteratore.next();
 				s.append(a.toString()+" ");
 			}
-				
+
 		}
 		else
 			s.append("Borsa vuota");
 		return s.toString();
 	}
-	
+
 	public List<Attrezzo> getContenutoOrdinatoPerPeso(){
 		List<Attrezzo> ordinata = new ArrayList<Attrezzo>(this.attrezzi);
 		ComparatorePerPeso comparatore = new ComparatorePerPeso();
 		Collections.sort(ordinata, comparatore);
 		return ordinata;
 	}
-	
+
 	public SortedSet<Attrezzo> getContenutoOrdinatoPerNome(){
 		SortedSet<Attrezzo> ordinato = new TreeSet<Attrezzo>(attrezzi);
 		return ordinato;
 	}
-	
+
 	public Map<Integer,Set<Attrezzo>> getContenutoRaggruppatoPerPeso(){
+		int pesoAttrezzo=-1;
+		Attrezzo a;
+		List<Attrezzo> attrezziSet = new ArrayList<Attrezzo>();
 		List<Attrezzo> ordinata = new ArrayList<Attrezzo>(this.attrezzi);
 		ComparatorePerPeso comparatore = new ComparatorePerPeso();
 		Collections.sort(ordinata, comparatore);//ordino la lista degli attrezzi per peso
 		ListIterator<Attrezzo> iteratore = ordinata.listIterator();//creo l'iteratore per scorrere la lista
 		Map<Integer,Set<Attrezzo>> mappa = new TreeMap<Integer,Set<Attrezzo>>();
 		while(iteratore.hasNext()) {
-			List<Attrezzo> attrezziSet = new ArrayList<Attrezzo>();
-			Attrezzo a =iteratore.next();
-			int pesoAttrezzo = a.getPeso();
-			attrezziSet.add(a);
-			while (iteratore.hasNext()) {
-				a=iteratore.next();
-				if(a.getPeso()==pesoAttrezzo) {
-					attrezziSet.add(a);//aggiungo al set ordinato per nome tutti gli elementi dello stesso peso di a
-				}
-				else
-					a=iteratore.previous();
+			a=iteratore.next();
+			if(a.getPeso()==pesoAttrezzo || pesoAttrezzo==-1) {
+				pesoAttrezzo=a.getPeso();
+				attrezziSet.add(a);
+			} else {
+				attrezziSet.removeAll(attrezzi);
+				pesoAttrezzo=a.getPeso();
+				attrezziSet.add(a);
 			}
 			SortedSet<Attrezzo> setOrdinatoPerNome = new TreeSet<Attrezzo>(attrezziSet);
-			mappa.put(pesoAttrezzo, setOrdinatoPerNome);//aggiungo il set alla mappa
+			mappa.put(pesoAttrezzo, setOrdinatoPerNome);
 		}
 		return mappa;
 	}
-	
+
 	SortedSet<Attrezzo> getSortedSetOrdinatoPerPeso(){
 		ComparatorePerPesoENome comparatore = new ComparatorePerPesoENome();
 		SortedSet<Attrezzo> ordinato = new TreeSet<Attrezzo>(comparatore);

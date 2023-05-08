@@ -33,11 +33,11 @@ public class ComandoGuarda implements Comando {
 		while(iteratore.hasNext()) {
 			int key = iteratore.next();
 			StringBuilder s = new StringBuilder();
-			s.append("( "+key+", {");
+			s.append("( "+key+", { ");
 			Set<Attrezzo> attrezziPesoKey = mappaBorsa.get(key);
 			Iterator<Attrezzo> iteratoreAttrezzi = attrezziPesoKey.iterator();
-			while (iteratoreAttrezzi.hasNext()) s.append(iteratoreAttrezzi.next().getNome()+", ");
-			s.delete(s.length()-2, s.length());
+			while (iteratoreAttrezzi.hasNext()) {s.append(iteratoreAttrezzi.next().getNome()+", ");}
+			s.delete(s.length()-2, s.length()-1);
 			s.append("} )");
 			IO.mostraMessaggio(s.toString());
 		}
