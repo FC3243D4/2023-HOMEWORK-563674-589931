@@ -3,23 +3,15 @@ import it.uniroma3.diadia.ambienti.*;
 import it.uniroma3.diadia.giocatore.*;
 
 
-/**
- * Questa classe modella una partita del gioco
- *
- * @author  docente di POO
- * @see Stanza
- * @version base
- */
-
 public class Partita {
 	private boolean finita;
 	private Labirinto labirinto;
 	private Giocatore giocatore;
 	private Stanza stanzaCorrente;
 	
-	public Partita(){
-		this.labirinto=new Labirinto();
-		this.stanzaCorrente=this.labirinto.creaStanze();
+	public Partita(Labirinto labirinto){
+		this.labirinto=labirinto;
+		this.stanzaCorrente=this.labirinto.getStanzaIniziale();
 		this.giocatore=new Giocatore();
 		this.finita = false;
 	}

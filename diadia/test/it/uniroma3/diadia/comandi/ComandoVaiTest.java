@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 class ComandoVaiTest {
@@ -21,7 +22,7 @@ class ComandoVaiTest {
 	@BeforeEach
 	void setUp(){
 		this.comando = new ComandoVai();
-		this.partita = new Partita();
+		this.partita = new Partita(new Labirinto().LabirintoDiaDia());
 		this.corrente = new Stanza("corrente");
 		this.adiacente = new Stanza("adiacente");
 		this.corrente.impostaStanzaAdiacente(DIREZIONE, this.adiacente);

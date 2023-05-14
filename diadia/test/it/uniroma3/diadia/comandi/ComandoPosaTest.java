@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -20,7 +21,7 @@ class ComandoPosaTest {
 	@BeforeEach
 	void setUp(){
 		this.comando = new ComandoPosa();
-		this.partita = new Partita();
+		this.partita = new Partita(new Labirinto().LabirintoDiaDia());
 		this.stanza = new Stanza("stanza");
 		this.partita.setStanzaCorrente(stanza);
 		//this.attrezzoNonInBorsa = new Attrezzo("nonInBorsa", 1);

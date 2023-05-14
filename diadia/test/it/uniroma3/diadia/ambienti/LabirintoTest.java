@@ -11,8 +11,8 @@ class LabirintoTest {
 	private Stanza stanzaCorrente;
 	@BeforeEach
 	void setUp(){
-		this.labirinto=new Labirinto();
-		this.stanzaCorrente=labirinto.creaStanze();
+		this.labirinto=new Labirinto().LabirintoDiaDia();
+		this.stanzaCorrente=labirinto.getStanzaIniziale();
 	}
 
 	@Test

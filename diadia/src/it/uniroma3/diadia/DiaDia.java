@@ -31,9 +31,9 @@ public class DiaDia {
 	private Partita partita;
 	private IO IO; //tipo astratto IO
 
-	public DiaDia(IO io) {//passo parametro io di tipo astratto IO (vedi slide 8 hmwk2)
-		this.partita = new Partita();
-		this.IO = io;
+	public DiaDia(IO console, Labirinto labirinto) {
+		this.IO = console;
+		this.partita = new Partita(labirinto);
 	}
 
 	public void gioca() {
@@ -68,7 +68,8 @@ public class DiaDia {
 	
 	public static void main(String[] argc) {
 		IO io = new IOConsole();
-		DiaDia gioco = new DiaDia(io);
+		Labirinto labirinto = new Labirinto().LabirintoDiaDia();
+		DiaDia gioco = new DiaDia(io, labirinto);
 		gioco.gioca();
 	}
 

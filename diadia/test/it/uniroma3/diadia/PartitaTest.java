@@ -17,7 +17,8 @@ class PartitaTest {
 		this.stanzaNull=null;
 		this.stanza1=new Stanza("stanza 1");
 		this.stanza2=new Stanza("stanza 2");
-		this.partita=new Partita();
+		Labirinto labirinto = new Labirinto().LabirintoDiaDia();
+		this.partita=new Partita(labirinto);
 		}
 
 	@Test
