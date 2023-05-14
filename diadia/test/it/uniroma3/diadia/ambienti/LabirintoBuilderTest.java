@@ -11,7 +11,7 @@ class LabirintoBuilderTest {
 	/*private Labirinto monolocale;
 	private Labirinto bilocale;
 	private Labirinto trilocale;*/
-
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		this.builder = new LabirintoBuilder()
@@ -25,8 +25,8 @@ class LabirintoBuilderTest {
 				.addAdiacenza("Atrio", "Bloccata", "est")
 				.addAdiacenza("Atrio", "Magica", "ovest")
 				.addAdiacenza("Atrio", "Buia", "sud");
-		/*
-		this.monolocale = new LabirintoBuilder()
+		
+		/*this.monolocale = new LabirintoBuilder()
 				.addStanzaIniziale("salotto") // aggiunge una stanza, che sarà anche iniziale
 				.addStanzaVincente("salotto") // specifica quala stanza sarà vincente
 				.getLabirinto(); // restituisce il Labirinto così specificato
@@ -93,3 +93,7 @@ class LabirintoBuilderTest {
 	}
 
 }
+
+
+
+

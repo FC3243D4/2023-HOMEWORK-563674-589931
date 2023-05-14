@@ -32,7 +32,12 @@ public class Stanza {
 	private int numeroStanzeAdiacenti;
 	//private String[] direzioni;
 	private List<String> direzioni;
-	private Map<String, Stanza> stanzeAdiacenti;
+	private Map<String, Stanza> mapStanzeAdiacenti;
+
+	public Map<String, Stanza> getMapStanzeAdiacenti() {
+		return mapStanzeAdiacenti;
+	}
+	
 
 	/**
 	 * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
@@ -44,7 +49,7 @@ public class Stanza {
 		this.numeroAttrezzi = 0;
 		this.attrezzi = new ArrayList<Attrezzo>();
 		this.direzioni = new ArrayList<String>(NUMERO_MASSIMO_DIREZIONI);
-		this.stanzeAdiacenti = new HashMap<String, Stanza>();
+		this.mapStanzeAdiacenti = new HashMap<String, Stanza>();
 	}
 
 	/**
@@ -70,10 +75,10 @@ public class Stanza {
 //	}
 	
 	public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
-		if(this.stanzeAdiacenti.put(direzione, stanza)==null)
+		if(this.mapStanzeAdiacenti.put(direzione, stanza)==null)
 			numeroStanzeAdiacenti++;
 		else
-			this.stanzeAdiacenti.put(direzione, stanza);
+			this.mapStanzeAdiacenti.put(direzione, stanza);
 
 	}
 
@@ -91,7 +96,7 @@ public class Stanza {
 //	}
 	
 	public Stanza getStanzaAdiacente(String direzione) {
-		return this.stanzeAdiacenti.get(direzione);
+		return this.mapStanzeAdiacenti.get(direzione);
 	}
 
 	/**
@@ -233,5 +238,10 @@ public class Stanza {
 			direzioni.add(d);
 		return direzioni;
 	}
-
+	
+	public boolean isMagica() {
+		StanzaMagica StanzaMagicaTest = new StanzaMagica("test");
+		if (this.getClass()==StanzaMagicaTest.getClass()) return true;
+		return false;
+	}
 }

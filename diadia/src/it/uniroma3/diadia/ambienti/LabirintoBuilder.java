@@ -2,6 +2,8 @@ package it.uniroma3.diadia.ambienti;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -16,7 +18,7 @@ public class LabirintoBuilder {
 		this.mappaStanze = new HashMap<String, Stanza>();
 	}
 	
-	public Map<String, Stanza> getmappaStanze() {
+	public Map<String, Stanza> getMappaStanze() {
 		return mappaStanze;
 	}
 
@@ -67,6 +69,12 @@ public class LabirintoBuilder {
 	
 	public LabirintoBuilder addStanzaMagica(String nome) {
 		Stanza stanza = new StanzaMagica(nome);
+		this.UltimaStanzaAggiuntaEAggiorna(stanza);
+		return this;
+	}
+	
+	public LabirintoBuilder addStanzaMagica(String nome, int capacita) {
+		Stanza stanza = new StanzaMagica(nome,capacita);
 		this.UltimaStanzaAggiuntaEAggiorna(stanza);
 		return this;
 	}
