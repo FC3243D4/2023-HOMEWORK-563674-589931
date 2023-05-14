@@ -77,8 +77,8 @@ public class LabirintoBuilder {
 		return this;
 	}
 	
-	public LabirintoBuilder addStanzaBloccata(String nome, String attrezzoSbloccante, String direzioneBloccata) {
-		Stanza stanza = new StanzaBloccata(nome, attrezzoSbloccante, direzioneBloccata);
+	public LabirintoBuilder addStanzaBloccata(String nome, String direzioneBloccata, String attrezzoSbloccante) {
+		Stanza stanza = new StanzaBloccata(nome, direzioneBloccata, attrezzoSbloccante);
 		this.UltimaStanzaAggiuntaEAggiorna(stanza);
 		return this;
 	}

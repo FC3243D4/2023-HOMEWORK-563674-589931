@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -15,6 +16,7 @@ class ComandoPrendiTest {
 	private Partita partita;
 	private Stanza stanza;
 	private Attrezzo attrezzo;
+	private Labirinto monolocale;
 	
 
 	@BeforeEach
@@ -25,6 +27,11 @@ class ComandoPrendiTest {
 		this.partita.setStanzaCorrente(stanza);
 		this.attrezzo = new Attrezzo("attrezzo", 1);
 		stanza.addAttrezzo(attrezzo);
+		
+		this.monolocale = new LabirintoBuilder()
+				.addStanzaIniziale("camera").addAttrezzo("letto",10)
+
+				.getLabirinto();
 		
 	}
 
@@ -54,6 +61,14 @@ class ComandoPrendiTest {
 		this.comando.setParametro("attrezzo");
 		this.comando.esegui(partita);
 		assertFalse(this.stanza.hasAttrezzo("attrezzo"));
+	}
+	
+	@Test
+	void testComandoPrendiConMonolocale() {
+		this.partita=new Partita(monolocale);
+		this.comando.setParametro("letto");
+		this.comando.esegui(this.partita);
+		assertEquals(true,this.partita.getGiocatore().getBorsa().hasAttrezzo("letto"));	
 	}
 
 	

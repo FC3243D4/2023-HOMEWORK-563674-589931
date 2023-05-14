@@ -2,6 +2,11 @@ package it.uniroma3.diadia.giocatore;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -124,6 +129,80 @@ class BorsaTest {
         this.borsa.addAttrezzo(attrezzo);
         this.borsa.removeAttrezzo("attrezzo");
         assertNull(this.borsa.removeAttrezzo("attrezzo"));
+    }
+    
+    @Test
+    void testGetContenutoOrdinatoPerPeso() {
+    	Attrezzo a1 = new Attrezzo("osso", 1);
+    	Attrezzo a2 = new Attrezzo("arco", 2);
+    	Attrezzo a3 = new Attrezzo("martello", 7);
+    	this.borsaDieci.addAttrezzo(a3);
+    	this.borsaDieci.addAttrezzo(a2);
+    	this.borsaDieci.addAttrezzo(a1);
+    	
+    	List<Attrezzo> contenuto = this.borsaDieci.getContenutoOrdinatoPerPeso();
+    	    	
+    	assertEquals(a1, contenuto.get(0));
+    	assertEquals(a2, contenuto.get(1));
+    	assertEquals(a3, contenuto.get(2));
+    }
+    
+    @Test
+    void testGetContenutoOrdinatoPerNome() {
+    	Attrezzo a1 = new Attrezzo("osso", 1);
+    	Attrezzo a2 = new Attrezzo("arco", 2);
+    	Attrezzo a3 = new Attrezzo("martello", 7);
+    	this.borsaDieci.addAttrezzo(a3);
+    	this.borsaDieci.addAttrezzo(a2);
+    	this.borsaDieci.addAttrezzo(a1);
+    	
+    	Set<Attrezzo> contenuto = this.borsaDieci.getContenutoOrdinatoPerNome();
+    	    	
+    	Iterator<Attrezzo> iter = contenuto.iterator();
+    	
+    	assertEquals(a2, iter.next());
+    	assertEquals(a3, iter.next());
+    	assertEquals(a1, iter.next());
+
+    	
+    }
+    
+    @Test
+    void testGetContenutoRaggruppatoPerPeso() {
+    	Attrezzo a1 = new Attrezzo("osso", 1);
+    	Attrezzo a2 = new Attrezzo("arco", 2);
+    	Attrezzo a3 = new Attrezzo("orologio", 1);
+    	this.borsaDieci.addAttrezzo(a3);
+    	this.borsaDieci.addAttrezzo(a2);
+    	this.borsaDieci.addAttrezzo(a1);
+    	
+    	Map<Integer, Set<Attrezzo>> mappa = this.borsaDieci.getContenutoRaggruppatoPerPeso();
+    	
+    	Set<Attrezzo> contenuto = mappa.get(1);
+    	
+    	Iterator<Attrezzo> iter = contenuto.iterator();
+    	
+    	assertEquals(a1, iter.next());
+    	assertEquals(a3, iter.next());
+    	
+    }
+    
+    @Test
+    void testGetSortedSetOrdinatoPerPeso() {
+    	Attrezzo a1 = new Attrezzo("osso", 1);
+    	Attrezzo a2 = new Attrezzo("arco", 2);
+    	Attrezzo a3 = new Attrezzo("martello", 7);
+    	this.borsaDieci.addAttrezzo(a3);
+    	this.borsaDieci.addAttrezzo(a2);
+    	this.borsaDieci.addAttrezzo(a1);
+    	
+    	Set<Attrezzo> contenuto = this.borsaDieci.getSortedSetOrdinatoPerPeso();
+    	    	
+    	Iterator<Attrezzo> iter = contenuto.iterator();
+    	
+    	assertEquals(a1, iter.next());
+    	assertEquals(a2, iter.next());
+    	assertEquals(a3, iter.next());
     }
 
 }

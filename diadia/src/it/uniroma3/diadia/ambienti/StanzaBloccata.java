@@ -75,7 +75,7 @@ public class StanzaBloccata extends Stanza {
 			return this.toString();
 		else
 			return "la porta a " + this.direzioneBloccata + " è bloccata\n"
-					+ "ti serve l' oggetto" + this.attrezzoSbloccante + "nella stanza per aprirla...";
+					+ "ti serve l' oggetto " + this.attrezzoSbloccante + " nella stanza per aprirla...";
 	}
 	
 

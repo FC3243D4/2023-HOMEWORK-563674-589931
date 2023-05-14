@@ -16,11 +16,21 @@ class DiaDiaTest {
 	private IOSimulator simulatore;
 	private DiaDia gioco;
 	private List<String> comandi;
+	private Labirinto trilocale;
 
 
 	@BeforeEach
 	void setUp() {
 		this.comandi = new ArrayList<String>();
+		this.trilocale = new LabirintoBuilder()
+				.addStanzaIniziale("salotto")
+				.addStanza("cucina").addAttrezzo("pentola",1) // dove? fa riferimento all’ultima stanza aggiunta: la “cucina”
+				.addStanzaVincente("camera")
+				
+				.addAdiacenza("salotto", "cucina", "nord")
+				.addAdiacenza("cucina", "camera", "est")
+				
+				.getLabirinto();
 	}
 
 	@Test
@@ -65,6 +75,17 @@ class DiaDiaTest {
 				"puoi raccoglierli, usarli, posarli quando ti sembrano inutili\n" +
 				"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 				"Per conoscere le istruzioni usa il comando 'aiuto'.", simulatore.getComandiMostrati().get(0));
+	}
+	
+	@Test
+	void testPartitaConTrilocale() {
+		ArrayList<String> comandi = new ArrayList<String>();
+		comandi.add("vai nord");
+		comandi.add("vai est");
+		simulatore = new IOSimulator(comandi);
+		this.gioco=new DiaDia(simulatore, trilocale);
+		gioco.gioca();
+		assertEquals("Hai vinto!",simulatore.getComandiMostrati().get(simulatore.getComandiMostrati().size()-1));
 	}
 }
 
