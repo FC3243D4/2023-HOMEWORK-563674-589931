@@ -45,7 +45,7 @@ class DiaDiaTest {
 	}
 
 	@Test
-	void test() throws Exception {
+	void testFineCfu() throws Exception {
 		ArrayList<String> comandi = new ArrayList<String>();
 		for(int i=0; i<20; i++) {
 			if (i%2==0) comandi.add("vai est");

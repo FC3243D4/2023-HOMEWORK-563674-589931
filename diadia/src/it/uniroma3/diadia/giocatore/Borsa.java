@@ -12,17 +12,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.attrezzi.*;
 import it.uniroma3.diadia.properties.CaricatoreProperties;
 
 
 public class Borsa {
+	public final static int DEFAULT_PESO_MAX_BORSA = CaricatoreProperties.getPesoMax();
 	private List<Attrezzo> attrezzi;
 	private int pesoMax;
 
-	public Borsa() throws FileNotFoundException, FormatoFileNonValidoException {
-		this(new CaricatoreProperties("diadia.properties").getPesoBorsa());
+	public Borsa(){
+		this(DEFAULT_PESO_MAX_BORSA);
 	}
 
 	public Borsa(int pesoMax) {
