@@ -9,7 +9,6 @@ import java.util.Iterator;
 import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.attrezzi.*;
 import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
-import it.uniroma3.diadia.properties.*;
 
 
 /**
@@ -24,7 +23,8 @@ import it.uniroma3.diadia.properties.*;
  */
 
 public class Stanza {
-
+	static final private int NUMERO_MASSIMO_DIREZIONI = 4;
+	static final private int NUMERO_MASSIMO_ATTREZZI = 10;
 
 	private String nome;
 	private List<Attrezzo> attrezzi;
@@ -33,7 +33,6 @@ public class Stanza {
 	private List<String> direzioni;
 	private Map<String, Stanza> mapStanzeAdiacenti;
 	private AbstractPersonaggio personaggio;
-	private CaricatoreProperties caricatore;
 	
 	public void setPersonaggio (AbstractPersonaggio personaggio) {
 		this.personaggio=personaggio;
@@ -54,13 +53,12 @@ public class Stanza {
 	 * @throws FormatoFileNonValidoException 
 	 * @throws FileNotFoundException 
 	 */
-	public Stanza(String nome) throws FileNotFoundException, FormatoFileNonValidoException {
+	public Stanza(String nome) {
 		this.nome = nome;
 		this.numeroStanzeAdiacenti = 0;
 		this.numeroAttrezzi = 0;
-		this.caricatore=new CaricatoreProperties("diadia.properties");
 		this.attrezzi = new ArrayList<Attrezzo>();
-		this.direzioni = new ArrayList<String>(caricatore.getNumeroMassimoDirezioni());
+		this.direzioni = new ArrayList<String>(NUMERO_MASSIMO_DIREZIONI);
 		this.mapStanzeAdiacenti = new HashMap<String, Stanza>();
 	}
 
@@ -153,9 +151,9 @@ public class Stanza {
 //		}
 //	}
 	
-	public boolean addAttrezzo(Attrezzo attrezzo) throws FormatoFileNonValidoException {
+	public boolean addAttrezzo(Attrezzo attrezzo) {
 		
-		if (attrezzo!=null && this.numeroAttrezzi < caricatore.getNumeroMassimoAttrezzi()) {
+		if (attrezzo!=null && this.numeroAttrezzi < NUMERO_MASSIMO_ATTREZZI) {
 			return this.attrezzi.add(attrezzo);
 		}
 		
@@ -236,14 +234,6 @@ public class Stanza {
 		
 		return false;
 	}
-
-
-//	public String[] getDirezioni() {
-//		String[] direzioni = new String[this.numeroStanzeAdiacenti];
-//		for(int i=0; i<this.numeroStanzeAdiacenti; i++)
-//			direzioni[i] = this.direzioni[i];
-//		return direzioni;
-//	}
 	
 	public List<String> getDirezioni() {
 		List<String> direzioni = new ArrayList<String>(this.numeroStanzeAdiacenti);
@@ -252,9 +242,13 @@ public class Stanza {
 		return direzioni;
 	}
 	
-	public boolean isMagica() throws FileNotFoundException, FormatoFileNonValidoException {
+	public boolean isMagica() {
 		StanzaMagica StanzaMagicaTest = new StanzaMagica("test");
 		if (this.getClass()==StanzaMagicaTest.getClass()) return true;
 		return false;
+	}
+	
+	public int getNumeroAttrezzi() {
+		return numeroAttrezzi;
 	}
 }

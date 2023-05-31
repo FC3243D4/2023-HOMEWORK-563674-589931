@@ -2,9 +2,12 @@ package it.uniroma3.diadia.personaggi;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
@@ -18,7 +21,7 @@ class MagoTest {
 	private ComandoRegala comandoRegala;
 
 	@BeforeEach
-	void setUp(){
+	void setUp() throws FileNotFoundException, FormatoFileNonValidoException{
 		this.delMago = new Attrezzo("attrezzo", 5);
 		this.mago = new Mago("mago", "uhuu", this.delMago);
 		this.labirinto = Labirinto.newBuilder().addStanzaIniziale("corrente")

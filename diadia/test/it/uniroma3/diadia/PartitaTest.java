@@ -3,6 +3,8 @@ import it.uniroma3.diadia.ambienti.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +15,7 @@ class PartitaTest {
 	private Partita partita;
 	
 	@BeforeEach
-	void setUp() {
+	void setUp() throws FileNotFoundException, FormatoFileNonValidoException {
 		this.stanzaNull=null;
 		this.stanza1=new Stanza("stanza 1");
 		this.stanza2=new Stanza("stanza 2");

@@ -4,9 +4,9 @@ import java.io.*;
 import java.util.*;
 import it.uniroma3.diadia.attrezzi.*;
 import it.uniroma3.diadia.personaggi.*;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
-import it.uniroma3.diadia.ambienti.*;
 
 public class CaricatoreLabirinto {
 
@@ -57,10 +57,13 @@ public class CaricatoreLabirinto {
 
 	//private Stanza stanzaIniziale;
 	//private Stanza stanzaVincente;
+	
+	public Labirinto getLabirinto() {
+		return this.builder.getLabirinto();
+	}
 
 
 	public CaricatoreLabirinto(String nomeFile) throws FileNotFoundException {
-		//this.nome2stanza = new HashMap<String,Stanza>();
 		this.reader = new LineNumberReader(new FileReader(nomeFile));
 		this.builder= new LabirintoBuilder();
 	}
@@ -100,7 +103,6 @@ public class CaricatoreLabirinto {
 	private void leggiECreaStanze() throws FormatoFileNonValidoException, FileNotFoundException  {
 		String nomiStanze = this.leggiRigaCheCominciaPer(STANZE_MARKER);
 		for(String nomeStanza : separaStringheAlleVirgole(nomiStanze)) {
-			//Stanza stanza = new Stanza(nomeStanza);
 			this.builder.addStanza(nomeStanza);
 		}
 	}
@@ -285,7 +287,7 @@ public class CaricatoreLabirinto {
 		}
 	}
 	
-	private void leggiECreaStanzeBuie() throws FormatoFileNonValidoException{
+	private void leggiECreaStanzeBuie() throws FileNotFoundException, FormatoFileNonValidoException {
 		String specificheStanzeBuie = this.leggiRigaCheCominciaPer(STANZE_BUIE_MARKER);
 		for(String specificheStanzaBuia : separaStringheAlleVirgole(specificheStanzeBuie)) {
 			try(Scanner ScannerLinea = new Scanner(specificheStanzaBuia)){
@@ -301,8 +303,8 @@ public class CaricatoreLabirinto {
 		}
 	}
 	
-	private void leggiECreaStanzeBloccate() throws FormatoFileNonValidoException{
-		String specificheStanzeBloccate = this.leggiRigaCheCominciaPer(STANZE_BUIE_MARKER);
+	private void leggiECreaStanzeBloccate() throws FormatoFileNonValidoException, FileNotFoundException{
+		String specificheStanzeBloccate = this.leggiRigaCheCominciaPer(STANZE_BLOCCATE_MARKER);
 		for(String specificheStanzaBloccata : separaStringheAlleVirgole(specificheStanzeBloccate)) {
 			try(Scanner ScannerLinea = new Scanner(specificheStanzaBloccata)){
 				String nomeStanza=null;

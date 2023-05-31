@@ -2,9 +2,12 @@ package it.uniroma3.diadia.comandi;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
 
@@ -15,7 +18,7 @@ class AbstractComandoTest {
 	private AbstractComando comandoAstratto;
 
 	@BeforeEach
-	void setUp(){
+	void setUp() throws FileNotFoundException, FormatoFileNonValidoException{
 		this.labirinto = new Labirinto();
 		this.partita = new Partita(this.labirinto);
 		

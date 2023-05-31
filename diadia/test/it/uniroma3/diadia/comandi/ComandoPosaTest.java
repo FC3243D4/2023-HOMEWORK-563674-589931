@@ -2,9 +2,12 @@ package it.uniroma3.diadia.comandi;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
@@ -21,7 +24,7 @@ class ComandoPosaTest {
 	
 
 	@BeforeEach
-	void setUp(){
+	void setUp() throws FileNotFoundException, FormatoFileNonValidoException{
 		this.comando = new ComandoPosa();
 		this.partita = new Partita(new Labirinto().LabirintoDiaDia());
 		this.stanza = new Stanza("stanza");
@@ -65,7 +68,7 @@ class ComandoPosaTest {
 	}
 	
 	@Test
-	void testConMonolocale() {
+	void testConMonolocale() throws FileNotFoundException, FormatoFileNonValidoException {
 		this.partita=new Partita(monolocale);
 		this.partita.getGiocatore().getBorsa().addAttrezzo(attrezzoInBorsa);
 		this.comando.setParametro("attrezzo");

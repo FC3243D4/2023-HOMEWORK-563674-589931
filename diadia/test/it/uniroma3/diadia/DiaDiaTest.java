@@ -9,6 +9,7 @@ import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 
 import java.util.List;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -20,7 +21,7 @@ class DiaDiaTest {
 
 
 	@BeforeEach
-	void setUp() {
+	void setUp() throws FileNotFoundException, FormatoFileNonValidoException {
 		this.comandi = new ArrayList<String>();
 		this.trilocale = new LabirintoBuilder()
 				.addStanzaIniziale("salotto")

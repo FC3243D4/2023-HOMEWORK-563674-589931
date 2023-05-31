@@ -2,8 +2,6 @@ package it.uniroma3.diadia.ambienti;
 
 import java.io.FileNotFoundException;
 
-import it.uniroma3.diadia.FormatoFileNonValidoException;
-import it.uniroma3.diadia.properties.*;
 
 /** classe che modella una stanza con un comportamento specifico
  * se non è presente in essa un determinato oggetto che fa luce
@@ -15,7 +13,7 @@ import it.uniroma3.diadia.properties.*;
  * 
  * */
 public class StanzaBuia extends Stanza {
-	//private static final String ATTREZZO_CHE_FA_LUCE_DEFAULT = "lanterna";
+	private static final String ATTREZZO_CHE_FA_LUCE_DEFAULT = "lanterna";
 	private String AttrezzoCheFaLuce;
 	
 	
@@ -26,8 +24,8 @@ public class StanzaBuia extends Stanza {
 	 * @throws FormatoFileNonValidoException 
 	 * @throws FileNotFoundException 
 	 * */
-	public StanzaBuia(String nome) throws FileNotFoundException, FormatoFileNonValidoException {
-		this(nome, new CaricatoreProperties("diadia.properties").getAttrezzoLuminoso());
+	public StanzaBuia(String nome){
+		this(nome, ATTREZZO_CHE_FA_LUCE_DEFAULT);
 		
 	}
 	
@@ -39,7 +37,7 @@ public class StanzaBuia extends Stanza {
 	 * @throws FormatoFileNonValidoException 
 	 * @throws FileNotFoundException 
 	 * */
-	public StanzaBuia(String nome, String nomeAttrezzo) throws FileNotFoundException, FormatoFileNonValidoException {
+	public StanzaBuia(String nome, String nomeAttrezzo) {
 		super(nome);
 		this.AttrezzoCheFaLuce = nomeAttrezzo;
 	}

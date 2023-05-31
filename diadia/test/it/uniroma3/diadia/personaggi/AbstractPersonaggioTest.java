@@ -2,9 +2,12 @@ package it.uniroma3.diadia.personaggi;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
@@ -22,7 +25,7 @@ class AbstractPersonaggioTest {
 	private Stanza corrente;
 
 	@BeforeEach
-	void setUp(){
+	void setUp() throws FileNotFoundException, FormatoFileNonValidoException{
 		this.corrente = new Stanza("corrente");
 		this.labirinto = new Labirinto();
 		this.partita = new Partita(this.labirinto);

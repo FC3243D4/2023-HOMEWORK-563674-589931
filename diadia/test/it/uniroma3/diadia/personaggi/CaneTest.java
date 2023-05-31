@@ -2,9 +2,12 @@ package it.uniroma3.diadia.personaggi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
@@ -21,7 +24,7 @@ class CaneTest {
 	private Attrezzo martello;
 
 	@BeforeEach
-	void setUp(){
+	void setUp() throws FileNotFoundException, FormatoFileNonValidoException{
 		this.labirinto = Labirinto.newBuilder().addStanzaIniziale("corrente")
 				.getLabirinto();
 		this.partita = new Partita(this.labirinto);

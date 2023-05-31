@@ -19,7 +19,7 @@ import it.uniroma3.diadia.properties.*;
 
 public class DiaDia {
 
-	/*static final private String MESSAGGIO_BENVENUTO = ""+
+	static final private String MESSAGGIO_BENVENUTO = ""+
 			"Ti trovi nell'Universita', ma oggi e' diversa dal solito...\n" +
 			"Meglio andare al piu' presto in biblioteca a studiare. Ma dov'e'?\n"+
 			"I locali sono popolati da strani personaggi, " +
@@ -27,7 +27,7 @@ public class DiaDia {
 			"Ci sono attrezzi che potrebbero servirti nell'impresa:\n"+
 			"puoi raccoglierli, usarli, posarli quando ti sembrano inutili\n" +
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
-			"Per conoscere le istruzioni usa il comando 'aiuto'.";*/
+			"Per conoscere le istruzioni usa il comando 'aiuto'.";
 
 	private Partita partita;
 	private IO IO; //tipo astratto IO
@@ -37,10 +37,10 @@ public class DiaDia {
 		this.partita = new Partita(labirinto);
 	}
 
-	public void gioca() throws FileNotFoundException, FormatoFileNonValidoException {
+	public void gioca() throws Exception {
 		String istruzione;
 
-		IO.mostraMessaggio(new CaricatoreProperties("diadia.properties").getMessaggioBenvenuto());
+		IO.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		do		
 			istruzione = IO.leggiRiga();
 		while (!processaIstruzione(istruzione));
@@ -67,7 +67,7 @@ public class DiaDia {
 		return this.partita.isFinita();
 		}
 	
-	public static void main(String[] argc) throws FileNotFoundException, FormatoFileNonValidoException {
+	public static void main(String[] argc) throws Exception {
 		IO io = new IOConsole();
 		Labirinto labirinto = new Labirinto().LabirintoDiaDia();
 		DiaDia gioco = new DiaDia(io, labirinto);
