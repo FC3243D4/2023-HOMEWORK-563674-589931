@@ -1,11 +1,15 @@
 package it.uniroma3.diadia.ambienti;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.attrezzi.*;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
+import it.uniroma3.diadia.properties.*;
 
 
 /**
@@ -21,18 +25,23 @@ import it.uniroma3.diadia.attrezzi.*;
 
 public class Stanza {
 
-	static final private int NUMERO_MASSIMO_DIREZIONI = 4;
-	static final private int NUMERO_MASSIMO_ATTREZZI = 10;
 
 	private String nome;
-	//private Attrezzo[] attrezzi;
 	private List<Attrezzo> attrezzi;
 	private int numeroAttrezzi;
-	//private Stanza[] stanzeAdiacenti;
 	private int numeroStanzeAdiacenti;
-	//private String[] direzioni;
 	private List<String> direzioni;
 	private Map<String, Stanza> mapStanzeAdiacenti;
+	private AbstractPersonaggio personaggio;
+	private CaricatoreProperties caricatore;
+	
+	public void setPersonaggio (AbstractPersonaggio personaggio) {
+		this.personaggio=personaggio;
+	}
+	
+	public AbstractPersonaggio getPersonaggio() {
+		return this.personaggio;
+	}
 
 	public Map<String, Stanza> getMapStanzeAdiacenti() {
 		return mapStanzeAdiacenti;
@@ -42,13 +51,16 @@ public class Stanza {
 	/**
 	 * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
 	 * @param nome il nome della stanza
+	 * @throws FormatoFileNonValidoException 
+	 * @throws FileNotFoundException 
 	 */
-	public Stanza(String nome) {
+	public Stanza(String nome) throws FileNotFoundException, FormatoFileNonValidoException {
 		this.nome = nome;
 		this.numeroStanzeAdiacenti = 0;
 		this.numeroAttrezzi = 0;
+		this.caricatore=new CaricatoreProperties("diadia.properties");
 		this.attrezzi = new ArrayList<Attrezzo>();
-		this.direzioni = new ArrayList<String>(NUMERO_MASSIMO_DIREZIONI);
+		this.direzioni = new ArrayList<String>(caricatore.getNumeroMassimoDirezioni());
 		this.mapStanzeAdiacenti = new HashMap<String, Stanza>();
 	}
 
@@ -127,6 +139,7 @@ public class Stanza {
 	 * Mette un attrezzo nella stanza.
 	 * @param attrezzo l'attrezzo da mettere nella stanza.
 	 * @return true se riesce ad aggiungere l'attrezzo, false atrimenti.
+	 * @throws FormatoFileNonValidoException 
 	 */
 	
 //	public boolean addAttrezzo(Attrezzo attrezzo) {
@@ -140,9 +153,9 @@ public class Stanza {
 //		}
 //	}
 	
-	public boolean addAttrezzo(Attrezzo attrezzo) {
+	public boolean addAttrezzo(Attrezzo attrezzo) throws FormatoFileNonValidoException {
 		
-		if (attrezzo!=null && this.numeroAttrezzi < NUMERO_MASSIMO_ATTREZZI) {
+		if (attrezzo!=null && this.numeroAttrezzi < caricatore.getNumeroMassimoAttrezzi()) {
 			return this.attrezzi.add(attrezzo);
 		}
 		
@@ -239,7 +252,7 @@ public class Stanza {
 		return direzioni;
 	}
 	
-	public boolean isMagica() {
+	public boolean isMagica() throws FileNotFoundException, FormatoFileNonValidoException {
 		StanzaMagica StanzaMagicaTest = new StanzaMagica("test");
 		if (this.getClass()==StanzaMagicaTest.getClass()) return true;
 		return false;

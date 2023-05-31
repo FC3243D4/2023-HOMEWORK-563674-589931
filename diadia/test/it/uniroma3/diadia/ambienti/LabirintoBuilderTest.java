@@ -13,7 +13,7 @@ class LabirintoBuilderTest {
 	private Labirinto trilocale;*/
 	
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp(){
 		this.builder = new LabirintoBuilder()
 				.addStanzaIniziale("Atrio").addAttrezzo("osso", 1)
 				.addStanzaVincente("Biblioteca")
@@ -93,7 +93,6 @@ class LabirintoBuilderTest {
 	}
 
 }
-
 
 
 

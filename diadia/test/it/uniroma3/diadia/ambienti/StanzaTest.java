@@ -108,4 +108,19 @@ class StanzaTest {
         this.stanza.removeAttrezzo(NOME_ATTREZZO);
         assertEquals(false,this.stanza.hasAttrezzo(NOME_ATTREZZO));
     }
+    
+    @Test
+    void testIsMagicaSuStanzaMagicaRitornaTrue() {
+    	StanzaMagica s = new StanzaMagica("magica");
+    	assertTrue(s.isMagica());
+    }
+    
+    @Test
+    void testIsMagicaSuStanzaNonMagicaRitornaFalse() {
+    	Stanza s = new Stanza("nonMagica");
+    	Stanza s2 = new StanzaBloccata("nonMagica", "nord");    	
+    	assertFalse(s.isMagica());
+    	assertFalse(s2.isMagica());
+
+    }
 }

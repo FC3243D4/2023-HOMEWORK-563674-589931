@@ -1,6 +1,10 @@
 package it.uniroma3.diadia.ambienti;
 
+import java.io.FileNotFoundException;
+
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.properties.*;
 
 /**Una classe che modella una stanza che diventa "magica" 
  * (versione alternativa con i campi protected)
@@ -14,7 +18,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  * */
 
 public class StanzaMagicaProtected extends StanzaProtected {
-	final static protected int SOGLIA_MAGICA_DEFAULT = 3;
+	//final static protected int SOGLIA_MAGICA_DEFAULT = 3;
 
 	protected int contatoreAttrezziPosati;
 	protected int sogliaMagica;
@@ -22,9 +26,11 @@ public class StanzaMagicaProtected extends StanzaProtected {
 	
 	/**crea una stanza magica a partire dal costruttore primario
 	 * @param nome della stanza magica
+	 * @throws FormatoFileNonValidoException 
+	 * @throws FileNotFoundException 
 	 * */
-	public StanzaMagicaProtected(String nome) {
-		this(nome, SOGLIA_MAGICA_DEFAULT);
+	public StanzaMagicaProtected(String nome) throws FileNotFoundException, FormatoFileNonValidoException {
+		this(nome, new CaricatoreProperties("diadia.properties").getSogliaMagica());
 	}
 	
 	/**crea una stanza magica

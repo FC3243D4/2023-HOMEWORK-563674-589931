@@ -4,19 +4,16 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import it.uniroma3.diadia.IO;
-import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class ComandoGuarda implements Comando {
+public class ComandoGuarda extends AbstractComando{
 	private static final String NOME_COMANDO = "comandoGuarda";
-	private IO IO;
-	
-	public ComandoGuarda() {
-		this.IO = new IOConsole();
-	}
 
+
+	public ComandoGuarda() {
+		super(NOME_COMANDO);
+	}
 	
 	/**
 	 * stampa le informazioni sulla stanza corrente e
@@ -24,9 +21,9 @@ public class ComandoGuarda implements Comando {
 	 * */
 	@Override
 	public void esegui(Partita partita) {
-		IO.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
-		IO.mostraMessaggio("cfu correnti: " + partita.getGiocatore().getCfu());
-		IO.mostraMessaggio("gli attrezzi nella borsa sono:");
+		this.getIO().mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
+		this.getIO().mostraMessaggio("cfu correnti: " + partita.getGiocatore().getCfu());
+		this.getIO().mostraMessaggio("gli attrezzi nella borsa sono:");
 		Map<Integer,Set<Attrezzo>> mappaBorsa = partita.getGiocatore().getBorsa().getContenutoRaggruppatoPerPeso();
 		Set<Integer> pesi = mappaBorsa.keySet();
 		Iterator<Integer> iteratore = pesi.iterator();
@@ -39,23 +36,9 @@ public class ComandoGuarda implements Comando {
 			while (iteratoreAttrezzi.hasNext()) {s.append(iteratoreAttrezzi.next().getNome()+", ");}
 			s.delete(s.length()-2, s.length()-1);
 			s.append("} )");
-			IO.mostraMessaggio(s.toString());
+			this.getIO().mostraMessaggio(s.toString());
 		}
 		
-	}
-
-	@Override
-	public void setParametro(String parametro) {
-	}
-
-	@Override
-	public String getNome() {
-		return NOME_COMANDO;
-	}
-
-	@Override
-	public String getParametro() {
-		return null;
 	}
 
 }

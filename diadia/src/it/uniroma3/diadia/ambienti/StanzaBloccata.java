@@ -1,5 +1,9 @@
 package it.uniroma3.diadia.ambienti;
 
+import java.io.FileNotFoundException;
+
+import it.uniroma3.diadia.FormatoFileNonValidoException;
+import it.uniroma3.diadia.properties.*;
 
 /** classe che modella una stanza con un comportamento specifico
  * se non è presente in essa un determinato oggetto che sblocca
@@ -11,7 +15,7 @@ package it.uniroma3.diadia.ambienti;
  * 
  * */
 public class StanzaBloccata extends Stanza {
-	private static final String ATTREZZO_SBLOCCANTE = "chiave";
+	//private static final String ATTREZZO_SBLOCCANTE = "chiave";
 
 	private String direzioneBloccata;
 	private String attrezzoSbloccante;
@@ -22,10 +26,11 @@ public class StanzaBloccata extends Stanza {
 	 * impostando l' attrezzo che sblocca la direzione come chiave
 	 * @param String nome della stanza
 	 * @param String direzione da impostare bloccata
+	 * @throws FormatoFileNonValidoException 
+	 * @throws FileNotFoundException 
 	 * */
-	public StanzaBloccata(String nome, String direzione) {
-		this(nome, direzione, ATTREZZO_SBLOCCANTE);
-		
+	public StanzaBloccata(String nome, String direzione) throws FileNotFoundException, FormatoFileNonValidoException {
+		this(nome, direzione, new CaricatoreProperties("diadia.properties").getAttrezzoSbloccante());
 	}
 	
 	/**
@@ -35,8 +40,10 @@ public class StanzaBloccata extends Stanza {
 	 * @param String nome della stanza
 	 * @param String direzione che verrà bloccata
 	 * @param String nome dell' attrezzo sbloccante
+	 * @throws FormatoFileNonValidoException 
+	 * @throws FileNotFoundException 
 	 * */
-	public StanzaBloccata(String nome, String direzione, String nomeAttrezzo) {
+	public StanzaBloccata(String nome, String direzione, String nomeAttrezzo) throws FileNotFoundException, FormatoFileNonValidoException {
 		super(nome);
 		this.direzioneBloccata = direzione;
 		this.attrezzoSbloccante = nomeAttrezzo;

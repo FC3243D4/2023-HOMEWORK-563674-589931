@@ -3,21 +3,16 @@ package it.uniroma3.diadia.comandi;
 import java.util.Iterator;
 import java.util.List;
 
-import it.uniroma3.diadia.IO;
-import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class ComandoPrendi implements Comando{
+public class ComandoPrendi extends AbstractComando{
 	private static final String NOME_COMANDO = "comandoPrendi";
 	
-	private String nomeAttrezzo;
-	private IO IO;
-	
-	public ComandoPrendi() {
-		this.IO = new IOConsole();
-	}
 
+	public ComandoPrendi() {
+		super(NOME_COMANDO);
+	}
 	
 	/**controlla se nella stanza è presente un attrezzo di nome 
 	 * nomeAttrezzo e se si lo aggiunge alla borsa e lo toglie dalla stanza*/
@@ -28,42 +23,16 @@ public class ComandoPrendi implements Comando{
 		Iterator<Attrezzo> iteratore = attrezzi.iterator();
 		while (iteratore.hasNext() && cercato==null) {
 			Attrezzo a =iteratore.next();
-			if(a.getNome().equals(nomeAttrezzo)) {
+			if(a.getNome().equals(this.getParametro())) {
 				cercato=a;
 				partita.getStanzaCorrente().removeAttrezzo(a.getNome());
 				partita.getGiocatore().getBorsa().addAttrezzo(a);
-				IO.mostraMessaggio("oggetto "+nomeAttrezzo+" messo in borsa");
+				this.getIO().mostraMessaggio("oggetto "+this.getParametro()+" messo in borsa");
 			}
 		}
-		/*
-		for(int i=0;i<attrezzi.length;i++) {
-			if(attrezzi[i] != null) {
-				if(attrezzi[i].getNome().equals(this.nomeAttrezzo)) {
-					a=attrezzi[i];
-					partita.getStanzaCorrente().removeAttrezzo(attrezzi[i].getNome());
-					partita.getGiocatore().getBorsa().addAttrezzo(a);
-					IO.mostraMessaggio("oggetto "+nomeAttrezzo+" messo in borsa");
-				}
-			}
-		}*/
-		if(cercato==null) IO.mostraMessaggio("oggetto non presente nella stanza");
+	
+		if(cercato==null) this.getIO().mostraMessaggio("oggetto non presente nella stanza");
 
-	}
-
-	@Override
-	public void setParametro(String parametro) {
-		this.nomeAttrezzo = parametro;
-		
-	}
-
-	@Override
-	public String getNome() {
-		return NOME_COMANDO;
-	}
-
-	@Override
-	public String getParametro() {
-		return this.nomeAttrezzo;
 	}
 
 }

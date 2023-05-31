@@ -2,6 +2,7 @@ package it.uniroma3.diadia.giocatore;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.SortedSet;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 //import java.util.Collection;
 import java.util.Collections;
@@ -11,16 +12,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.attrezzi.*;
+import it.uniroma3.diadia.properties.CaricatoreProperties;
 
 
 public class Borsa {
-	public final static int DEFAULT_PESO_MAX_BORSA = 10;
 	private List<Attrezzo> attrezzi;
 	private int pesoMax;
 
-	public Borsa() {
-		this(DEFAULT_PESO_MAX_BORSA);
+	public Borsa() throws FileNotFoundException, FormatoFileNonValidoException {
+		this(new CaricatoreProperties("diadia.properties").getPesoBorsa());
 	}
 
 	public Borsa(int pesoMax) {
@@ -32,8 +34,6 @@ public class Borsa {
 		if (attrezzo==null) return false;
 		if (this.getPeso() + attrezzo.getPeso() > this.getPesoMax())
 			return false;
-		//if (this.numeroAttrezzi==10)
-		//return false;
 		this.attrezzi.add(attrezzo);
 		return true;
 	}
@@ -143,10 +143,6 @@ public class Borsa {
 		ComparatorePerPesoENome comparatore = new ComparatorePerPesoENome();
 		SortedSet<Attrezzo> ordinato = new TreeSet<Attrezzo>(comparatore);
 		ordinato.addAll(attrezzi);
-		/*List<Attrezzo> listaOrdinata = new ArrayList<Attrezzo>(attrezzi);
-		Collections.sort(listaOrdinata, comparatore);
-		Iterator<Attrezzo> iteratore = listaOrdinata.iterator();
-		while(iteratore.hasNext()) ordinato.add(iteratore.next());*/
 		return ordinato;
 	}
 

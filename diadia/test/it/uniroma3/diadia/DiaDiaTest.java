@@ -34,7 +34,7 @@ class DiaDiaTest {
 	}
 
 	@Test
-	void testDaAtrioABiblioteca() {
+	void testDaAtrioABiblioteca() throws Exception {
 		comandi.add("vai nord");
 		simulatore = new IOSimulator(comandi);
 		Labirinto labirinto = new Labirinto().LabirintoDiaDia();
@@ -44,7 +44,7 @@ class DiaDiaTest {
 	}
 
 	@Test
-	void test() {
+	void test() throws Exception {
 		ArrayList<String> comandi = new ArrayList<String>();
 		for(int i=0; i<20; i++) {
 			if (i%2==0) comandi.add("vai est");
@@ -59,7 +59,7 @@ class DiaDiaTest {
 	}
 	
 	@Test
-	void testMessaggioBenvenuto() {
+	void testMessaggioBenvenuto() throws Exception {
 		ArrayList<String> comandi = new ArrayList<String>();
 		comandi.add("vai nord");
 		simulatore = new IOSimulator(comandi);
@@ -78,7 +78,7 @@ class DiaDiaTest {
 	}
 	
 	@Test
-	void testPartitaConTrilocale() {
+	void testPartitaConTrilocale() throws Exception {
 		ArrayList<String> comandi = new ArrayList<String>();
 		comandi.add("vai nord");
 		comandi.add("vai est");
@@ -88,4 +88,3 @@ class DiaDiaTest {
 		assertEquals("Hai vinto!",simulatore.getComandiMostrati().get(simulatore.getComandiMostrati().size()-1));
 	}
 }
-

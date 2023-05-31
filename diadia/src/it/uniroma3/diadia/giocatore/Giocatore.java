@@ -1,15 +1,19 @@
 package it.uniroma3.diadia.giocatore;
 
+import java.io.FileNotFoundException;
+
+import it.uniroma3.diadia.FormatoFileNonValidoException;
+import it.uniroma3.diadia.properties.CaricatoreProperties;
+
 public class Giocatore {
 	
-	static final private int CFU_INIZIALI = 20;
 	
 	private int cfu;
 	private Borsa borsa;
 	
 	
-	public Giocatore() {
-		this.cfu = CFU_INIZIALI;
+	public Giocatore() throws FileNotFoundException, FormatoFileNonValidoException {
+		this.cfu = new CaricatoreProperties("diadia.properties").getCFU();
 		this.borsa = new Borsa();
 	}
 

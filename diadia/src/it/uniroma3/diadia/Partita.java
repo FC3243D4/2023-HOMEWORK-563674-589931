@@ -1,4 +1,6 @@
 package it.uniroma3.diadia;
+import java.io.FileNotFoundException;
+
 import it.uniroma3.diadia.ambienti.*;
 import it.uniroma3.diadia.giocatore.*;
 
@@ -9,7 +11,7 @@ public class Partita {
 	private Giocatore giocatore;
 	private Stanza stanzaCorrente;
 	
-	public Partita(Labirinto labirinto){
+	public Partita(Labirinto labirinto) throws FileNotFoundException, FormatoFileNonValidoException{
 		this.labirinto=labirinto;
 		this.stanzaCorrente=this.labirinto.getStanzaIniziale();
 		this.giocatore=new Giocatore();

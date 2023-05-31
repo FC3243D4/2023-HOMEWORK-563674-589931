@@ -1,8 +1,9 @@
 package it.uniroma3.diadia;
+import java.io.FileNotFoundException;
+
 import it.uniroma3.diadia.ambienti.*;
-import it.uniroma3.diadia.attrezzi.*;
-import it.uniroma3.diadia.comandi.Comando;
-import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.comandi.*;
+import it.uniroma3.diadia.properties.*;
 
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
@@ -18,7 +19,7 @@ import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 
 public class DiaDia {
 
-	static final private String MESSAGGIO_BENVENUTO = ""+
+	/*static final private String MESSAGGIO_BENVENUTO = ""+
 			"Ti trovi nell'Universita', ma oggi e' diversa dal solito...\n" +
 			"Meglio andare al piu' presto in biblioteca a studiare. Ma dov'e'?\n"+
 			"I locali sono popolati da strani personaggi, " +
@@ -26,20 +27,20 @@ public class DiaDia {
 			"Ci sono attrezzi che potrebbero servirti nell'impresa:\n"+
 			"puoi raccoglierli, usarli, posarli quando ti sembrano inutili\n" +
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
-			"Per conoscere le istruzioni usa il comando 'aiuto'.";
+			"Per conoscere le istruzioni usa il comando 'aiuto'.";*/
 
 	private Partita partita;
 	private IO IO; //tipo astratto IO
 
-	public DiaDia(IO console, Labirinto labirinto) {
+	public DiaDia(IO console, Labirinto labirinto) throws FileNotFoundException, FormatoFileNonValidoException {
 		this.IO = console;
 		this.partita = new Partita(labirinto);
 	}
 
-	public void gioca() {
+	public void gioca() throws FileNotFoundException, FormatoFileNonValidoException {
 		String istruzione;
 
-		IO.mostraMessaggio(MESSAGGIO_BENVENUTO);
+		IO.mostraMessaggio(new CaricatoreProperties("diadia.properties").getMessaggioBenvenuto());
 		do		
 			istruzione = IO.leggiRiga();
 		while (!processaIstruzione(istruzione));
@@ -50,11 +51,12 @@ public class DiaDia {
 	 * Processa una istruzione 
 	 *
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
+	 * @throws Exception 
 	 */
-	private boolean processaIstruzione(String istruzione) {
-		Comando comandoDaEseguire;
-		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica();
-		
+	private boolean processaIstruzione(String istruzione) throws Exception{
+		AbstractComando comandoDaEseguire;
+		FabbricaDiComandiRiflessiva factory = new FabbricaDiComandiRiflessiva();
+
 		comandoDaEseguire = factory.costruisciComando(istruzione);
 		comandoDaEseguire.esegui(this.partita);
 		
@@ -65,8 +67,7 @@ public class DiaDia {
 		return this.partita.isFinita();
 		}
 	
-	
-	public static void main(String[] argc) {
+	public static void main(String[] argc) throws FileNotFoundException, FormatoFileNonValidoException {
 		IO io = new IOConsole();
 		Labirinto labirinto = new Labirinto().LabirintoDiaDia();
 		DiaDia gioco = new DiaDia(io, labirinto);
