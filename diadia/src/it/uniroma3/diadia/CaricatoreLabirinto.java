@@ -185,9 +185,6 @@ public class CaricatoreLabirinto {
 	private void impostaUscita(String stanzaDa, String dir, String nomeA) throws FormatoFileNonValidoException {
 		check(isStanzaValida(stanzaDa),"Stanza di partenza sconosciuta "+dir);
 		check(isStanzaValida(nomeA),"Stanza di destinazione sconosciuta "+ dir);
-		//Stanza partenzaDa = this.builder.getMappaStanze().get(stanzaDa);
-		//Stanza arrivoA = this.builder.getMappaStanze().get(nomeA);
-		//partenzaDa.impostaStanzaAdiacente(dir, arrivoA);
 		this.builder.addAdiacenza(stanzaDa, nomeA, dir);
 	}
 
