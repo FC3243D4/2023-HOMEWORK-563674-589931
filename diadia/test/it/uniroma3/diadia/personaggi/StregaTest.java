@@ -87,6 +87,8 @@ class StregaTest {
 	
 	@Test
 	void testMetodoAgisciSpostaGiocatoreInStanzaConNumeroAttrezziMaxConQuattroAdiacenti() {		
+		this.strega.setGiocatoreHaSalutato(true);
+		
 		this.corrente.impostaStanzaAdiacente("nord", this.adiacenteNord);
 		this.corrente.impostaStanzaAdiacente("est", this.adiacenteEst);
 		this.corrente.impostaStanzaAdiacente("sud", this.adiacenteSud);

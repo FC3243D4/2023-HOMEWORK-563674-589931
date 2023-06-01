@@ -28,7 +28,6 @@ public class Stanza {
 
 	private String nome;
 	private List<Attrezzo> attrezzi;
-	private int numeroAttrezzi;
 	private int numeroStanzeAdiacenti;
 	private List<String> direzioni;
 	private Map<String, Stanza> mapStanzeAdiacenti;
@@ -56,7 +55,6 @@ public class Stanza {
 	public Stanza(String nome) {
 		this.nome = nome;
 		this.numeroStanzeAdiacenti = 0;
-		this.numeroAttrezzi = 0;
 		this.attrezzi = new ArrayList<Attrezzo>();
 		this.direzioni = new ArrayList<String>(NUMERO_MASSIMO_DIREZIONI);
 		this.mapStanzeAdiacenti = new HashMap<String, Stanza>();
@@ -153,8 +151,9 @@ public class Stanza {
 	
 	public boolean addAttrezzo(Attrezzo attrezzo) {
 		
-		if (attrezzo!=null && this.numeroAttrezzi < NUMERO_MASSIMO_ATTREZZI) {
+		if (attrezzo!=null && this.attrezzi.size() < NUMERO_MASSIMO_ATTREZZI) {
 			return this.attrezzi.add(attrezzo);
+			
 		}
 		
 		return false;
@@ -249,6 +248,6 @@ public class Stanza {
 	}
 	
 	public int getNumeroAttrezzi() {
-		return numeroAttrezzi;
+		return this.attrezzi.size();
 	}
 }
