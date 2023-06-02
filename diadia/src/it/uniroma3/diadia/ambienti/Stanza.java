@@ -23,13 +23,11 @@ import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
  */
 
 public class Stanza {
-	static final private int NUMERO_MASSIMO_DIREZIONI = 4;
 	static final private int NUMERO_MASSIMO_ATTREZZI = 10;
 
 	private String nome;
 	private List<Attrezzo> attrezzi;
 	private int numeroStanzeAdiacenti;
-	private List<Direzioni> direzioni;
 	private Map<Direzioni, Stanza> mapStanzeAdiacenti;
 	private AbstractPersonaggio personaggio;
 	
@@ -60,7 +58,6 @@ public class Stanza {
 		this.nome = nome;
 		this.numeroStanzeAdiacenti = 0;
 		this.attrezzi = new ArrayList<Attrezzo>();
-		this.direzioni = new ArrayList<Direzioni>(NUMERO_MASSIMO_DIREZIONI);
 		this.mapStanzeAdiacenti = new HashMap<Direzioni, Stanza>();
 	}
 
@@ -173,7 +170,7 @@ public class Stanza {
 		StringBuilder risultato = new StringBuilder();
 		risultato.append(this.nome);
 		risultato.append("\nUscite: ");
-		for (Direzioni direzione : this.direzioni)
+		for (Direzioni direzione : Direzioni.values())
 			if (direzione!=null)
 				risultato.append(" " + direzione.name());
 		risultato.append("\nAttrezzi nella stanza: ");
@@ -240,7 +237,7 @@ public class Stanza {
 	
 	public List<Direzioni> getDirezioni() {
 		List<Direzioni> direzioni = new ArrayList<Direzioni>(this.numeroStanzeAdiacenti);
-		for(Direzioni d : this.direzioni)
+		for(Direzioni d : Direzioni.values())
 			direzioni.add(d);
 		return direzioni;
 	}

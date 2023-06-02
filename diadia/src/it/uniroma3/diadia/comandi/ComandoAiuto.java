@@ -4,7 +4,6 @@ import it.uniroma3.diadia.Partita;
 
 public class ComandoAiuto extends AbstractComando{
 	
-	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa", "guarda"};
 	private static final String NOME_COMANDO = "comandoAiuto";
 
 	
@@ -17,8 +16,8 @@ public class ComandoAiuto extends AbstractComando{
 	 */
 	@Override
 	public void esegui(Partita partita) {
-		for(int i=0; i< elencoComandi.length; i++)
-			this.getIO().mostraMessaggio(elencoComandi[i]+" ");
+		for(ElencoComandi comando : ElencoComandi.values())
+			this.getIO().mostraMessaggio(comando+" ");
 		this.getIO().mostraMessaggio("");
 	}
 	

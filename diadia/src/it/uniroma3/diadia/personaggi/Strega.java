@@ -28,7 +28,6 @@ public class Strega extends AbstractPersonaggio {
 			//System.out.println(destinazione);
 			int numeroAttrezziMax = destinazione.getNumeroAttrezzi();
 			for(Stanza altraStanza : partita.getStanzaCorrente().getMapStanzeAdiacenti().values()) {
-				System.out.println(numeroAttrezziMax);
 				if(altraStanza.getNumeroAttrezzi() >= numeroAttrezziMax) {
 					numeroAttrezziMax=altraStanza.getNumeroAttrezzi();
 					destinazione = altraStanza;
