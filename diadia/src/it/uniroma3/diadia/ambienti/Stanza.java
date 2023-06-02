@@ -29,8 +29,8 @@ public class Stanza {
 	private String nome;
 	private List<Attrezzo> attrezzi;
 	private int numeroStanzeAdiacenti;
-	private List<String> direzioni;
-	private Map<String, Stanza> mapStanzeAdiacenti;
+	private List<Direzioni> direzioni;
+	private Map<Direzioni, Stanza> mapStanzeAdiacenti;
 	private AbstractPersonaggio personaggio;
 	
 	public void setPersonaggio (AbstractPersonaggio personaggio) {
@@ -41,8 +41,12 @@ public class Stanza {
 		return this.personaggio;
 	}
 
-	public Map<String, Stanza> getMapStanzeAdiacenti() {
+	public Map<Direzioni, Stanza> getMapStanzeAdiacenti() {
 		return mapStanzeAdiacenti;
+	}
+	
+	public void setMapStanzeAdiacenti(Map<Direzioni, Stanza> mappa) {
+		this.mapStanzeAdiacenti=mappa;
 	}
 	
 
@@ -56,8 +60,8 @@ public class Stanza {
 		this.nome = nome;
 		this.numeroStanzeAdiacenti = 0;
 		this.attrezzi = new ArrayList<Attrezzo>();
-		this.direzioni = new ArrayList<String>(NUMERO_MASSIMO_DIREZIONI);
-		this.mapStanzeAdiacenti = new HashMap<String, Stanza>();
+		this.direzioni = new ArrayList<Direzioni>(NUMERO_MASSIMO_DIREZIONI);
+		this.mapStanzeAdiacenti = new HashMap<Direzioni, Stanza>();
 	}
 
 	/**
@@ -82,7 +86,7 @@ public class Stanza {
 //			}
 //	}
 	
-	public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
+	public void impostaStanzaAdiacente(Direzioni direzione, Stanza stanza) {
 		if(this.mapStanzeAdiacenti.put(direzione, stanza)==null)
 			numeroStanzeAdiacenti++;
 		else
@@ -103,7 +107,7 @@ public class Stanza {
 //		return stanza;
 //	}
 	
-	public Stanza getStanzaAdiacente(String direzione) {
+	public Stanza getStanzaAdiacente(Direzioni direzione) {
 		return this.mapStanzeAdiacenti.get(direzione);
 	}
 
@@ -169,9 +173,9 @@ public class Stanza {
 		StringBuilder risultato = new StringBuilder();
 		risultato.append(this.nome);
 		risultato.append("\nUscite: ");
-		for (String direzione : this.direzioni)
+		for (Direzioni direzione : this.direzioni)
 			if (direzione!=null)
-				risultato.append(" " + direzione);
+				risultato.append(" " + direzione.name());
 		risultato.append("\nAttrezzi nella stanza: ");
 		for (Attrezzo attrezzo : this.attrezzi) {
 			if (attrezzo!=null)
@@ -234,9 +238,9 @@ public class Stanza {
 		return false;
 	}
 	
-	public List<String> getDirezioni() {
-		List<String> direzioni = new ArrayList<String>(this.numeroStanzeAdiacenti);
-		for(String d : this.direzioni)
+	public List<Direzioni> getDirezioni() {
+		List<Direzioni> direzioni = new ArrayList<Direzioni>(this.numeroStanzeAdiacenti);
+		for(Direzioni d : this.direzioni)
 			direzioni.add(d);
 		return direzioni;
 	}

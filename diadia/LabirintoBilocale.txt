@@ -1,0 +1,11 @@
+Stanze:camera
+Buia:
+Bloccata:salotto sud chiave
+Magica:
+Inizio:salotto
+Vincente:camera
+Attrezzi:letto 10 camera
+Uscite:salotto nord camera
+Mago:
+Strega:
+Cane:salotto Rex Bau osso 1

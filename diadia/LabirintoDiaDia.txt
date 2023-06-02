@@ -1,11 +1,11 @@
-Stanze:Biblioteca,N10,N11,Atrio,LaboratorioCampus
+Stanze:N11,LaboratorioCampus
+Buia:N10 lanterna
+Bloccata:Atrio nord chiave
+Magica:Biblioteca 3
 Inizio:Atrio
 Vincente:Biblioteca
-Attrezzi:osso 1 Atrio, lanterna 3 N10
+Attrezzi:osso 1 Atrio,lanterna 3 N10,chiave 1 LaboratorioCampus
 Uscite:Atrio nord Biblioteca,Atrio est N11,Atrio sud N10,Atrio ovest LaboratorioCampus
 Mago: N10 Merlino Shiauuuuu bacchetta 1
 Strega: Biblioteca Varana AHIUUUU
 Cane: LaboratorioCampus Rex Bau osso 1
-Buia: N10 lanterna
-Bloccata:
-Magica:Biblioteca

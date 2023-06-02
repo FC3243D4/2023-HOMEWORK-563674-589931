@@ -7,8 +7,10 @@ import java.io.FileNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.CaricatoreLabirinto;
 import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Direzioni;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
@@ -27,8 +29,10 @@ class StregaTest {
 
 	@BeforeEach
 	void setUp() throws FileNotFoundException, FormatoFileNonValidoException{
-		this.labirinto = new Labirinto();
-		this.partita = new Partita(this.labirinto);
+		CaricatoreLabirinto c=new CaricatoreLabirinto("LabirintoDiaDia.txt");
+		c.carica();
+		this.labirinto = c.getLabirinto();
+		this.partita=new Partita(labirinto);
 		this.strega = new Strega("strega", "ah aha");
 		this.strega.setGiocatoreHaSalutato(true);
 		this.comandoInteragisci = new ComandoInteragisci();
@@ -36,7 +40,7 @@ class StregaTest {
 		
 		this.corrente = new Stanza("corrente");
 		this.adiacente = new Stanza("adiacente");
-		this.corrente.impostaStanzaAdiacente("nord", this.adiacente);
+		this.corrente.impostaStanzaAdiacente(Direzioni.nord, this.adiacente);
 		this.corrente.setPersonaggio(this.strega);
 		this.partita.setStanzaCorrente(this.corrente);
 		
@@ -67,8 +71,8 @@ class StregaTest {
 
 	@Test
 	void testMetodoAgisciSpostaGiocatoreInStanzaConNumeroAttrezziMaxTraDueStanze() {		
-		this.corrente.impostaStanzaAdiacente("nord", this.adiacenteNord);
-		this.corrente.impostaStanzaAdiacente("est", this.adiacenteEst);
+		this.corrente.impostaStanzaAdiacente(Direzioni.nord, this.adiacenteNord);
+		this.corrente.impostaStanzaAdiacente(Direzioni.est, this.adiacenteEst);
 		
 		this.comandoInteragisci.esegui(this.partita);
 		assertEquals(adiacenteEst,this.partita.getStanzaCorrente());
@@ -76,9 +80,9 @@ class StregaTest {
 	
 	@Test
 	void testMetodoAgisciSpostaGiocatoreInStanzaConNumeroAttrezziMaxConTreAdiacenti() {		
-		this.corrente.impostaStanzaAdiacente("nord", this.adiacenteNord);
-		this.corrente.impostaStanzaAdiacente("est", this.adiacenteEst);
-		this.corrente.impostaStanzaAdiacente("sud", this.adiacenteSud);
+		this.corrente.impostaStanzaAdiacente(Direzioni.nord, this.adiacenteNord);
+		this.corrente.impostaStanzaAdiacente(Direzioni.est, this.adiacenteEst);
+		this.corrente.impostaStanzaAdiacente(Direzioni.sud, this.adiacenteSud);
 
 		
 		this.comandoInteragisci.esegui(this.partita);
@@ -89,10 +93,10 @@ class StregaTest {
 	void testMetodoAgisciSpostaGiocatoreInStanzaConNumeroAttrezziMaxConQuattroAdiacenti() {		
 		this.strega.setGiocatoreHaSalutato(true);
 		
-		this.corrente.impostaStanzaAdiacente("nord", this.adiacenteNord);
-		this.corrente.impostaStanzaAdiacente("est", this.adiacenteEst);
-		this.corrente.impostaStanzaAdiacente("sud", this.adiacenteSud);
-		this.corrente.impostaStanzaAdiacente("ovest", this.adiacenteOvest);
+		this.corrente.impostaStanzaAdiacente(Direzioni.nord, this.adiacenteNord);
+		this.corrente.impostaStanzaAdiacente(Direzioni.est, this.adiacenteEst);
+		this.corrente.impostaStanzaAdiacente(Direzioni.sud, this.adiacenteSud);
+		this.corrente.impostaStanzaAdiacente(Direzioni.ovest, this.adiacenteOvest);
 
 		this.comandoInteragisci.esegui(this.partita);
 		assertEquals(adiacenteEst,this.partita.getStanzaCorrente());
@@ -107,10 +111,10 @@ class StregaTest {
 		this.adiacenteSud.addAttrezzo(this.occhiali);
 		this.adiacenteNord.addAttrezzo(this.pettine);
 		
-		this.corrente.impostaStanzaAdiacente("nord", this.adiacenteNord);
-		this.corrente.impostaStanzaAdiacente("est", this.adiacenteEst);
-		this.corrente.impostaStanzaAdiacente("sud", this.adiacenteSud);
-		this.corrente.impostaStanzaAdiacente("ovest", this.adiacenteOvest);
+		this.corrente.impostaStanzaAdiacente(Direzioni.nord, this.adiacenteNord);
+		this.corrente.impostaStanzaAdiacente(Direzioni.est, this.adiacenteEst);
+		this.corrente.impostaStanzaAdiacente(Direzioni.sud, this.adiacenteSud);
+		this.corrente.impostaStanzaAdiacente(Direzioni.ovest, this.adiacenteOvest);
 
 		this.comandoInteragisci.esegui(this.partita);
 		assertEquals(this.adiacenteOvest,this.partita.getStanzaCorrente());

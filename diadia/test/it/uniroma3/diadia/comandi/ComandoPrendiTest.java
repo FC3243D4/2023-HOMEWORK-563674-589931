@@ -7,10 +7,10 @@ import java.io.FileNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.CaricatoreLabirinto;
 import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -25,13 +25,16 @@ class ComandoPrendiTest {
 	@BeforeEach
 	void setUp() throws FileNotFoundException, FormatoFileNonValidoException{
 		this.comando = new ComandoPrendi();
-		this.partita = new Partita(new Labirinto().LabirintoDiaDia());
+		CaricatoreLabirinto c=new CaricatoreLabirinto("LabirintoDiaDia.txt");
+		c.carica();
+		Labirinto labirinto = c.getLabirinto();
+		this.partita=new Partita(labirinto);
 		this.stanza = new Stanza("stanza");
 		this.partita.setStanzaCorrente(stanza);
 		this.attrezzo = new Attrezzo("attrezzo", 1);
 		stanza.addAttrezzo(attrezzo);
 		
-		this.monolocale = new LabirintoBuilder()
+		this.monolocale = Labirinto.newBuilder()
 				.addStanzaIniziale("camera").addAttrezzo("letto",10)
 
 				.getLabirinto();

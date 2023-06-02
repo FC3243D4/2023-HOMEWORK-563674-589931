@@ -1,0 +1,11 @@
+Stanze:salotto
+Buia:
+Bloccata:
+Magica:
+Inizio:salotto
+Vincente:salotto
+Attrezzi:
+Uscite:
+Mago:
+Strega:
+Cane:

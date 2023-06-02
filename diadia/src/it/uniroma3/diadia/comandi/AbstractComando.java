@@ -3,6 +3,7 @@ package it.uniroma3.diadia.comandi;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
+import java.util.Scanner;
 
 public abstract class AbstractComando{
 	
@@ -11,7 +12,8 @@ public abstract class AbstractComando{
 	private String parametro;
 	
 	public AbstractComando(String nome) {
-		this.IO = new IOConsole();
+		Scanner scanner = new Scanner(System.in);
+		this.IO = new IOConsole(scanner);
 		this.nome = nome;
 	}
 

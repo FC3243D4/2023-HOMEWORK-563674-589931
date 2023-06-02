@@ -5,13 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.ambienti.Direzioni;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.attrezzi.*;
 
 import java.util.List;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 class DiaDiaTest {
 	private IOSimulator simulatore;
@@ -23,13 +23,13 @@ class DiaDiaTest {
 	@BeforeEach
 	void setUp() throws FileNotFoundException, FormatoFileNonValidoException {
 		this.comandi = new ArrayList<String>();
-		this.trilocale = new LabirintoBuilder()
+		this.trilocale = Labirinto.newBuilder()
 				.addStanzaIniziale("salotto")
 				.addStanza("cucina").addAttrezzo("pentola",1) // dove? fa riferimento all’ultima stanza aggiunta: la “cucina”
 				.addStanzaVincente("camera")
 				
-				.addAdiacenza("salotto", "cucina", "nord")
-				.addAdiacenza("cucina", "camera", "est")
+				.addAdiacenza("salotto", "cucina", Direzioni.nord)
+				.addAdiacenza("cucina", "camera", Direzioni.est)
 				
 				.getLabirinto();
 	}
@@ -38,7 +38,10 @@ class DiaDiaTest {
 	void testDaAtrioABiblioteca() throws Exception {
 		comandi.add("vai nord");
 		simulatore = new IOSimulator(comandi);
-		Labirinto labirinto = new Labirinto().LabirintoDiaDia();
+		CaricatoreLabirinto c=new CaricatoreLabirinto("LabirintoDiaDia.txt");
+		c.carica();
+		Labirinto labirinto = c.getLabirinto();
+		labirinto.getStanzaIniziale().addAttrezzo(new Attrezzo("chiave",1));
 		this.gioco=new DiaDia(simulatore,labirinto);
 		gioco.gioca();
 		assertEquals("Hai vinto!", simulatore.getComandiMostrati().get(simulatore.getComandiMostrati().size()-1));
@@ -53,7 +56,9 @@ class DiaDiaTest {
 		}
 		simulatore = new IOSimulator(comandi);
 		simulatore.setComandiIniettati(comandi);
-		Labirinto labirinto = new Labirinto().LabirintoDiaDia();
+		CaricatoreLabirinto c=new CaricatoreLabirinto("LabirintoDiaDia.txt");
+		c.carica();
+		Labirinto labirinto = c.getLabirinto();
 		this.gioco=new DiaDia(simulatore,labirinto);
 		gioco.gioca();
 		assertEquals("Hai esaurito i CFU...", simulatore.getComandiMostrati().get(simulatore.getComandiMostrati().size()-1));
@@ -64,7 +69,11 @@ class DiaDiaTest {
 		ArrayList<String> comandi = new ArrayList<String>();
 		comandi.add("vai nord");
 		simulatore = new IOSimulator(comandi);
-		Labirinto labirinto = new Labirinto().LabirintoDiaDia();
+		simulatore.setComandiIniettati(comandi);
+		CaricatoreLabirinto c=new CaricatoreLabirinto("LabirintoDiaDia.txt");
+		c.carica();
+		Labirinto labirinto = c.getLabirinto();
+		labirinto.getStanzaIniziale().addAttrezzo(new Attrezzo("chiave",1));
 		this.gioco=new DiaDia(simulatore,labirinto);
 		gioco.gioca();
 		assertEquals(""+
@@ -84,6 +93,7 @@ class DiaDiaTest {
 		comandi.add("vai nord");
 		comandi.add("vai est");
 		simulatore = new IOSimulator(comandi);
+		simulatore.setComandiIniettati(comandi);
 		this.gioco=new DiaDia(simulatore, trilocale);
 		gioco.gioca();
 		assertEquals("Hai vinto!",simulatore.getComandiMostrati().get(simulatore.getComandiMostrati().size()-1));

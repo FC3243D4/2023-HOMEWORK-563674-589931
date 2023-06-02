@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.CaricatoreLabirinto;
 import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
@@ -21,14 +22,16 @@ class AbstractPersonaggioTest {
 	private Attrezzo attrezzo;
 	private AbstractComando comandoAstratto;
 	private Partita partita;
-	private Labirinto labirinto;
+	//private Labirinto labirinto;
 	private Stanza corrente;
 
 	@BeforeEach
 	void setUp() throws FileNotFoundException, FormatoFileNonValidoException{
 		this.corrente = new Stanza("corrente");
-		this.labirinto = new Labirinto();
-		this.partita = new Partita(this.labirinto);
+		CaricatoreLabirinto c=new CaricatoreLabirinto("LabirintoDiaDia.txt");
+		c.carica();
+		Labirinto labirinto = c.getLabirinto();
+		this.partita=new Partita(labirinto);
 		this.partita.setStanzaCorrente(this.corrente);
 		this.attrezzo = new Attrezzo("osso",1);
 		this.personaggioAstratto = new Mago("nome", "presentazione", this.attrezzo);

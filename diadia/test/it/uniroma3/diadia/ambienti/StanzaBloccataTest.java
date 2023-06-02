@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 class StanzaBloccataTest {
-	private static final String DIREZIONE_BLOCCATA = "nord";
-	private static final String DIREZIONE_NON_BLOCCATA = "sud";
+	private static final Direzioni DIREZIONE_BLOCCATA = Direzioni.nord;
+	private static final Direzioni DIREZIONE_NON_BLOCCATA = Direzioni.sud;
 	
 	private StanzaBloccata bloccata;
 	private Stanza adiacenteBloccata;

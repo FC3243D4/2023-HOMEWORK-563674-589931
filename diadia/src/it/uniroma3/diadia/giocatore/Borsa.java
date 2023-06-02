@@ -2,7 +2,6 @@ package it.uniroma3.diadia.giocatore;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.SortedSet;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 //import java.util.Collection;
 import java.util.Collections;

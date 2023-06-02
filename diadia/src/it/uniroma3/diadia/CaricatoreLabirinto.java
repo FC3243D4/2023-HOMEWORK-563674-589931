@@ -4,9 +4,7 @@ import java.io.*;
 import java.util.*;
 import it.uniroma3.diadia.attrezzi.*;
 import it.uniroma3.diadia.personaggi.*;
-import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
-import it.uniroma3.diadia.ambienti.Stanza;
+import it.uniroma3.diadia.ambienti.*;
 
 public class CaricatoreLabirinto {
 
@@ -39,6 +37,9 @@ public class CaricatoreLabirinto {
 
 	/* prefisso della riga contenente il nome stanza bloccata */
 	private static final String STANZE_BLOCCATE_MARKER = "Bloccata:";  
+	
+	/* prefisso della riga contenente il nome stanza bloccata */
+	private static final String STANZE_MAGICHE_MARKER = "Magica:";  
 
 	/*
 	 *  Esempio di un possibile file di specifica di un labirinto (vedi POO-26-eccezioni-file.pdf)
@@ -51,7 +52,7 @@ public class CaricatoreLabirinto {
 
 	 */
 	private LineNumberReader reader;
-	private LabirintoBuilder builder;
+	private Labirinto.LabirintoBuilder builder;
 
 	public Labirinto getLabirinto() {
 		return this.builder.getLabirinto();
@@ -60,20 +61,21 @@ public class CaricatoreLabirinto {
 
 	public CaricatoreLabirinto(String nomeFile) throws FileNotFoundException {
 		this.reader = new LineNumberReader(new FileReader(nomeFile));
-		this.builder= new LabirintoBuilder();
+		this.builder = Labirinto.newBuilder();
 	}
 
 	public void carica() throws FormatoFileNonValidoException, FileNotFoundException {
 		try {
 			this.leggiECreaStanze();
+			this.leggiECreaStanzeBuie();
+			this.leggiECreaStanzeBloccate();
+			this.leggiECreaStanzeMagiche();
 			this.leggiInizialeEvincente();
 			this.leggiECollocaAttrezzi();
 			this.leggiEImpostaUscite();
 			this.leggiECreaMaghi();
 			this.leggiECreaStreghe();
 			this.leggiECreaCani();
-			this.leggiECreaStanzeBuie();
-			this.leggiECreaStanzeBloccate();
 		} finally {
 			try {
 				reader.close();
@@ -168,7 +170,7 @@ public class CaricatoreLabirinto {
 					check(scannerDiLinea.hasNext(),msgTerminazionePrecoce("le uscite di una stanza."));
 					String stanzaPartenza = scannerDiLinea.next();
 					check(scannerDiLinea.hasNext(),msgTerminazionePrecoce("la direzione di una uscita della stanza "+stanzaPartenza));
-					String dir = scannerDiLinea.next();
+					Direzioni dir = Direzioni.fromName(scannerDiLinea.next());
 					check(scannerDiLinea.hasNext(),msgTerminazionePrecoce("la destinazione di una uscita della stanza "+stanzaPartenza+" nella direzione "+dir));
 					String stanzaDestinazione = scannerDiLinea.next();
 
@@ -182,7 +184,7 @@ public class CaricatoreLabirinto {
 		return "Terminazione precoce del file prima di leggere "+msg;
 	}
 
-	private void impostaUscita(String stanzaDa, String dir, String nomeA) throws FormatoFileNonValidoException {
+	private void impostaUscita(String stanzaDa, Direzioni dir, String nomeA) throws FormatoFileNonValidoException {
 		check(isStanzaValida(stanzaDa),"Stanza di partenza sconosciuta "+dir);
 		check(isStanzaValida(nomeA),"Stanza di destinazione sconosciuta "+ dir);
 		this.builder.addAdiacenza(stanzaDa, nomeA, dir);
@@ -306,16 +308,31 @@ public class CaricatoreLabirinto {
 		for(String specificheStanzaBloccata : separaStringheAlleVirgole(specificheStanzeBloccate)) {
 			try(Scanner ScannerLinea = new Scanner(specificheStanzaBloccata)){
 				String nomeStanza=null;
-				String direzione=null;
+				Direzioni direzione=null;
 				String nomeAttrezzo=null;
 				check(ScannerLinea.hasNext(),msgTerminazionePrecoce("la stanza "+specificheStanzaBloccata+" non esiste\n"));
 				nomeStanza=ScannerLinea.next();
 				check(ScannerLinea.hasNext(),msgTerminazionePrecoce("errore nella creazione della direzione bloccata"));
-				direzione=ScannerLinea.next();
+				direzione=Direzioni.fromName(ScannerLinea.next());
 				check(ScannerLinea.hasNext(),msgTerminazionePrecoce("errore nella creazione dell'attrezzo per sbloccare\n"));
 				nomeAttrezzo=ScannerLinea.next();
-
+				
 				this.builder.addStanzaBloccata(nomeStanza, direzione, nomeAttrezzo);
+			}
+		}
+	}
+	private void leggiECreaStanzeMagiche() throws FormatoFileNonValidoException, FileNotFoundException{
+		String specificheStanzeMagiche = this.leggiRigaCheCominciaPer(STANZE_MAGICHE_MARKER);
+		for(String specificheStanzaMagica : separaStringheAlleVirgole(specificheStanzeMagiche)) {
+			try(Scanner ScannerLinea = new Scanner(specificheStanzaMagica)){
+				String nomeStanza=null;
+				int soglia;
+				check(ScannerLinea.hasNext(),msgTerminazionePrecoce("la stanza "+specificheStanzaMagica+" non esiste\n"));
+				nomeStanza=ScannerLinea.next();
+				check(ScannerLinea.hasNext(),msgTerminazionePrecoce("errore nella creazione della soglia magica"));
+				soglia=Integer.parseInt(ScannerLinea.next());
+				
+				this.builder.addStanzaMagica(nomeStanza, soglia);
 			}
 		}
 	}

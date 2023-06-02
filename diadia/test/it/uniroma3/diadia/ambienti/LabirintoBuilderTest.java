@@ -11,24 +11,24 @@ import org.junit.jupiter.api.Test;
 import it.uniroma3.diadia.FormatoFileNonValidoException;
 
 class LabirintoBuilderTest {
-	private LabirintoBuilder builder;
+	private Labirinto.LabirintoBuilder builder;
 	/*private Labirinto monolocale;
 	private Labirinto bilocale;
 	private Labirinto trilocale;*/
 	
 	@BeforeEach
 	void setUp() throws FileNotFoundException, FormatoFileNonValidoException{
-		this.builder = new LabirintoBuilder()
+		this.builder = Labirinto.newBuilder()
 				.addStanzaIniziale("Atrio").addAttrezzo("osso", 1)
 				.addStanzaVincente("Biblioteca")
-				.addStanzaBloccata("Bloccata", "est", "chiave")
+				.addStanzaBloccata("Bloccata", Direzioni.est, "chiave")
 				.addStanzaBuia("Buia", "lanterna")
 				.addStanzaMagica("Magica").addAttrezzo("Attrezzo",1).addAttrezzo("Attrezzo",1).addAttrezzo("Attrezzo",1).addAttrezzo("Attrezzo",1)
 
-				.addAdiacenza("Atrio", "Biblioteca", "nord")
-				.addAdiacenza("Atrio", "Bloccata", "est")
-				.addAdiacenza("Atrio", "Magica", "ovest")
-				.addAdiacenza("Atrio", "Buia", "sud");
+				.addAdiacenza("Atrio", "Biblioteca", Direzioni.nord)
+				.addAdiacenza("Atrio", "Bloccata", Direzioni.est)
+				.addAdiacenza("Atrio", "Magica", Direzioni.ovest)
+				.addAdiacenza("Atrio", "Buia", Direzioni.sud);
 		
 		/*this.monolocale = new LabirintoBuilder()
 				.addStanzaIniziale("salotto") // aggiunge una stanza, che sarà anche iniziale
@@ -66,12 +66,12 @@ class LabirintoBuilderTest {
 
 	@Test
 	void testAdiacenza() {
-		assertEquals(builder.getLabirinto().getStanzaIniziale().getStanzaAdiacente("nord").getNome(), "Biblioteca");
+		assertEquals(builder.getLabirinto().getStanzaIniziale().getStanzaAdiacente(Direzioni.nord).getNome(), "Biblioteca");
 	}
 
 	@Test
 	void testAdiacenzaReciproca() {
-		assertEquals(builder.getLabirinto().getStanzaVincente().getStanzaAdiacente("sud").getNome(), "Atrio");
+		assertEquals(builder.getLabirinto().getStanzaVincente().getStanzaAdiacente(Direzioni.sud).getNome(), "Atrio");
 	}
 
 	@Test
@@ -82,18 +82,18 @@ class LabirintoBuilderTest {
 
 	@Test
 	void testStanzaBloccataInLabirinto() {
-		assertEquals(builder.getLabirinto().getStanzaIniziale().getStanzaAdiacente("est").getDescrizione(),"la porta a " + "est" + " è bloccata\n"
+		assertEquals(builder.getLabirinto().getStanzaIniziale().getStanzaAdiacente(Direzioni.est).getDescrizione(),"la porta a " + "est" + " è bloccata\n"
 				+ "ti serve l' oggetto " + "chiave" + " nella stanza per aprirla...");
 	}
 
 	@Test
 	void testStanzaMagicaInLabirinto() {
-		assertEquals(builder.getLabirinto().getStanzaIniziale().getStanzaAdiacente("ovest").hasAttrezzo("ozzerttA"),true);
+		assertEquals(builder.getLabirinto().getStanzaIniziale().getStanzaAdiacente(Direzioni.ovest).hasAttrezzo("ozzerttA"),true);
 	}
 
 	@Test
 	void testStanzaBuiaInLabirinto() {
-		assertEquals(builder.getLabirinto().getStanzaIniziale().getStanzaAdiacente("sud").getDescrizione(),"qui c'è buio pesto...");
+		assertEquals(builder.getLabirinto().getStanzaIniziale().getStanzaAdiacente(Direzioni.sud).getDescrizione(),"qui c'è buio pesto...");
 	}
 
 }

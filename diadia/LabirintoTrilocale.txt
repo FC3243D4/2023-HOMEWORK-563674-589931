@@ -1,0 +1,11 @@
+Stanze:camera
+Buia:salotto lanterna
+Bloccata:
+Magica:cucina 3
+Inizio:salotto
+Vincente:camera
+Attrezzi:pentola 1 cucina
+Uscite:salotto nord cucina,cucina est camera
+Mago: salotto Merlino mago bacchetta 1
+Strega: cucina Strega strega
+Cane:

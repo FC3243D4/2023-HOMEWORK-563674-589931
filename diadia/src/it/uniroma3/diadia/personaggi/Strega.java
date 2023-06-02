@@ -1,6 +1,7 @@
 package it.uniroma3.diadia.personaggi;
 
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Direzioni;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -16,10 +17,10 @@ public class Strega extends AbstractPersonaggio {
 	@Override
 	public String agisci(Partita partita) {
 		
-		Stanza destinazione = partita.getStanzaCorrente().getStanzaAdiacente("nord");
+		Stanza destinazione = partita.getStanzaCorrente().getStanzaAdiacente(Direzioni.nord);
 		
 		while(destinazione==null) {
-			for(String direzione : partita.getStanzaCorrente().getDirezioni())
+			for(Direzioni direzione : partita.getStanzaCorrente().getDirezioni())
 				destinazione = partita.getStanzaCorrente().getStanzaAdiacente(direzione);
 		}
 		

@@ -11,7 +11,7 @@ class StanzaTest {
 	private Stanza stanza;
 	private Stanza adiacente;
 	private static final String NOME = "nomeStanza";
-	private static final String DIREZIONE = "direzione";
+	private static final Direzioni DIREZIONE = Direzioni.nord;
 	private static final String ADIACENTE = "adiacente";
 	private static final String NOME_ATTREZZO = "nomeAttrezzo";
 	private static final int PESO = 1;
@@ -44,7 +44,7 @@ class StanzaTest {
 	void testStanzaConAltraDirezioneImpostataAdiacenteIsLaStanzaAdiacente() {
 		Stanza nuova = new Stanza(NOME);
 		this.stanza.impostaStanzaAdiacente(DIREZIONE, nuova);
-		this.stanza.impostaStanzaAdiacente("nuovaDrezione", nuova);
+		this.stanza.impostaStanzaAdiacente(Direzioni.sud, nuova);
 		assertEquals(nuova, this.stanza.getStanzaAdiacente(DIREZIONE));
 	}
 	
@@ -118,7 +118,7 @@ class StanzaTest {
     @Test
     void testIsMagicaSuStanzaNonMagicaRitornaFalse() {
     	Stanza s = new Stanza("nonMagica");
-    	Stanza s2 = new StanzaBloccata("nonMagica", "nord");    	
+    	Stanza s2 = new StanzaBloccata("nonMagica", Direzioni.nord);    	
     	assertFalse(s.isMagica());
     	assertFalse(s2.isMagica());
 
