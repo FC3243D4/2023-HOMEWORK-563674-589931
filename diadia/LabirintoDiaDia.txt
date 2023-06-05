@@ -6,6 +6,6 @@ Inizio:Atrio
 Vincente:Biblioteca
 Attrezzi:osso 1 Atrio,lanterna 3 N10,chiave 1 LaboratorioCampus
 Uscite:Atrio nord Biblioteca,Atrio est N11,Atrio sud N10,Atrio ovest LaboratorioCampus
-Mago: N10 Merlino ciao bacchetta 1
-Strega: N11 Babajaga ciao
+Mago: N10 Mago ciao bacchetta 1
+Strega: Atrio Strega ciao
 Cane: LaboratorioCampus Cane bau osso 1
