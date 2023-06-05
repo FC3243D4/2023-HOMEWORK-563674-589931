@@ -20,7 +20,7 @@ public class Strega extends AbstractPersonaggio {
 		Stanza destinazione = partita.getStanzaCorrente().getStanzaAdiacente(Direzioni.nord);
 		
 		while(destinazione==null) {
-			for(Direzioni direzione : partita.getStanzaCorrente().getDirezioni())
+			for(Direzioni direzione : partita.getStanzaCorrente().getMapStanzeAdiacenti().keySet())
 				destinazione = partita.getStanzaCorrente().getStanzaAdiacente(direzione);
 		}
 		

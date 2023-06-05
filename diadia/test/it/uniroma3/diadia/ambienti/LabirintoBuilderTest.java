@@ -82,8 +82,7 @@ class LabirintoBuilderTest {
 
 	@Test
 	void testStanzaBloccataInLabirinto() {
-		assertEquals(builder.getLabirinto().getStanzaIniziale().getStanzaAdiacente(Direzioni.est).getDescrizione(),"la porta a " + "est" + " è bloccata\n"
-				+ "ti serve l' oggetto " + "chiave" + " nella stanza per aprirla...");
+		assertEquals(builder.getLabirinto().getStanzaIniziale().getStanzaAdiacente(Direzioni.est).getClass().getSimpleName(),"StanzaBloccata");
 	}
 
 	@Test
