@@ -171,7 +171,7 @@ public class Stanza {
 		risultato.append(this.nome);
 		risultato.append("\nUscite: ");
 		for (Direzioni direzione : Direzioni.values())
-			if (direzione!=null)
+			if (this.mapStanzeAdiacenti.keySet().contains(direzione))
 				risultato.append(" " + direzione.name());
 		risultato.append("\nAttrezzi nella stanza: ");
 		for (Attrezzo attrezzo : this.attrezzi) {
