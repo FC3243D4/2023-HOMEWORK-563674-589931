@@ -40,11 +40,11 @@ class CaneTest {
 	}
 
 	@Test
-	void testAgisciDiCaneNonAbbassaDiUnoICfuDelGiocatoreSeRiceveIlCiboGiusto() {
+	void testAgisciDiCaneAbbassaDiUnoICfuDelGiocatoreSeRiceveIlCiboGiusto() {
 		this.comandoRegala.setParametro("osso");
 		this.comandoRegala.esegui(this.partita);
 		this.comandoInteragisci.esegui(this.partita);
-		assertEquals(20,this.partita.getGiocatore().getCfu());
+		assertEquals(19,this.partita.getGiocatore().getCfu());
 	}
 	
 	@Test
