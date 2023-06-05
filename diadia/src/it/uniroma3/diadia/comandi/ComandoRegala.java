@@ -28,8 +28,9 @@ public class ComandoRegala extends AbstractComando {
 			Attrezzo regalo = partita.getGiocatore().getBorsa().getAttrezzo(this.getParametro());
 			
 			if(regalo!=null) {
-				partita.getStanzaCorrente().getPersonaggio().riceviRegalo(regalo, partita);
+				String msg = partita.getStanzaCorrente().getPersonaggio().riceviRegalo(regalo, partita);
 				partita.getGiocatore().getBorsa().removeAttrezzo(regalo.getNome());
+				this.getIO().mostraMessaggio(msg);
 			}else {
 				this.getIO().mostraMessaggio("oggetto non presente in borsa...");
 			}

@@ -9,18 +9,16 @@ public class Cane extends AbstractPersonaggio {
 
 	private Attrezzo attrezzo;
 	private String msg="Argh, ti ha morso!";
-	private boolean aggressivo;
 
 
 	public Cane(String nome, String presentaz, Attrezzo attrezzo) {
 		super(nome, presentaz);
-		this.attrezzo = attrezzo;
-		this.aggressivo=true;
+		this.attrezzo=attrezzo;
 	}
 
 	@Override
 	public String agisci(Partita partita) {
-		if(this.aggressivo==true)partita.getGiocatore().setCfu(partita.getGiocatore().getCfu()-1);
+		partita.getGiocatore().setCfu(partita.getGiocatore().getCfu()-1);
 		return this.msg;
 	}
 
@@ -29,11 +27,10 @@ public class Cane extends AbstractPersonaggio {
 		if(a!=null) {
 			if(a.getNome().equals(CIBO_PREFERITO)) {
 				if(this.attrezzo!=null) {
+					String messaggio = "arf arf auuuuh!\noggetto "+this.attrezzo.getNome()+" precedentemente detenuto da "+this.getNome()+" lasciato nella stanza";
 					partita.getStanzaCorrente().addAttrezzo(this.attrezzo);
 					this.attrezzo = null;
-					this.msg = "arf arf auuuuh!";
-					this.aggressivo=false;
-					return msg;
+					return messaggio;
 				}
 			}
 		}
