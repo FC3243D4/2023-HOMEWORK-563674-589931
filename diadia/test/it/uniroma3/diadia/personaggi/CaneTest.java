@@ -36,30 +36,35 @@ class CaneTest {
 		this.cane = new Cane("cane", "bau", martello);
 		this.partita.getStanzaCorrente().setPersonaggio(this.cane);
 		
-		this.partita.getGiocatore().getBorsa().addAttrezzo(new Attrezzo("cibo",1));
-		this.comandoRegala.setParametro("cibo");
-		this.comandoRegala.esegui(this.partita);
+		this.partita.getGiocatore().getBorsa().addAttrezzo(new Attrezzo("osso",1));
 	}
 
 	@Test
-	void testAgisciDiCaneAbbassaDiUnoICfuDelGiocatore() {
+	void testAgisciDiCaneNonAbbassaDiUnoICfuDelGiocatoreSeRiceveIlCiboGiusto() {
+		this.comandoRegala.setParametro("osso");
+		this.comandoRegala.esegui(this.partita);
 		this.comandoInteragisci.esegui(this.partita);
-		assertEquals(19,this.partita.getGiocatore().getCfu());
+		assertEquals(20,this.partita.getGiocatore().getCfu());
 	}
 	
 	@Test
 	void testDopoComandoRegalaSuCaneInStanzaIsNotPresenteRegaloInBorsa() {
+		this.comandoRegala.setParametro("osso");
+		this.comandoRegala.esegui(this.partita);
 		assertEquals(false,this.partita.getGiocatore().getBorsa().hasAttrezzo("cibo"));
 	}
 	
 	@Test
 	void testDopoComandoRegalaSuCaneInStanzaIsPresenteAttrezzo() {
+		this.comandoRegala.setParametro("osso");
+		this.comandoRegala.esegui(this.partita);
 		assertEquals(true,this.partita.getStanzaCorrente().hasAttrezzo("martello"));
 	}
 	
 	@Test
 	void testNuovoTentativodiComandoRegalaConAttrezzoSbagliatoFaPerdereCfuAlGiocatore() {
-		this.partita.getGiocatore().getBorsa().addAttrezzo(new Attrezzo("occhiali",1));
+		Attrezzo a=new Attrezzo("occhiali",1);
+		this.partita.getGiocatore().getBorsa().addAttrezzo(a);
 		this.comandoRegala.setParametro("occhiali");
 		this.comandoRegala.esegui(this.partita);
 		assertEquals(19,this.partita.getGiocatore().getCfu());

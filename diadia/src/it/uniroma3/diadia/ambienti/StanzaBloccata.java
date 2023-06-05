@@ -52,7 +52,7 @@ public class StanzaBloccata extends Stanza {
 	@Override
 	public Stanza getStanzaAdiacente(Direzioni direzione) {
 		if(direzione==null)
-			return this;
+			return null;
 		if(direzione.equals(this.direzioneBloccata)) {
 			if(this.hasAttrezzo(this.attrezzoSbloccante)) {
 				return super.getStanzaAdiacente(direzione);

@@ -178,6 +178,7 @@ public class Stanza {
 			if (attrezzo!=null)
 				risultato.append(attrezzo.toString()+" ");
 		}
+		if(this.personaggio!=null) risultato.append("\nPersonaggio nella stanza: "+this.personaggio.toString());
 		return risultato.toString();
 	}
 
